@@ -233,6 +233,12 @@ psu <- list(
 )
 
 races <- c('AM','ASIAN','HISP','BLACK','WHITE','TR')
+regions <- list(
+  'northeast' = c(9,23,25,33,34,36,42,44,50),
+  'midwest' = c(17,18,19,20,26,27,29,31,38,39,46,55),
+  'south' = c(1,5,10,11,12,13,21,22,24,28,37,40,45,47,48,51,54),
+  'west' = c(2,4,6,8,15,16,30,32,35,41,49,53,56)
+)
 triangle_width <- 15
 hist_breaks <- 0:20 / 20
 
@@ -324,6 +330,18 @@ for (.year in names(psu)) {
   }
 
   .append_result()
+  
+  for (.state in unique(.data$FIPST)) {
+    .subset <- .data[.data$FIPST == .state,]
+    .append_result(subset = .subset, name = .state)
+  }
+  
+  for (.region in names(regions)) {
+    .subset <- .data[.data$FIPST %in% regions[[.region]],]
+    .append_result(subset = .subset, name = .region)
+  }
 }
 
-write(toJSON(output, auto_unbox=TRUE), file='data.json')
+for (.subset in names(output)) {
+  write(toJSON(output[[.subset]], auto_unbox=TRUE), file = paste0('data/', .subset, '.json'))
+}
