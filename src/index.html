@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Visualizing the increasing racial segregation of U.S. public schools">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>School Segregation</title>
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>School Segregation</h1>
+      <nav id="section-nav">
+        <ul>
+          <li><a href="#introduction">Introduction</a></li>
+          <li><a href="#triangle">White/Black/Hispanic Polarization</a></li>
+          <li><a href="#histograms">Distribution of Students by Race/Ethnicity</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section id="introduction">
+      </section>
+      <section id="triangle">
+      </section>
+      <section id="histograms">
+      </section>
+    </main>
+    <div id="controls">
+      <div class="year-control">
+        <button class="play-button"></button>
+        <span class="label"></span>
+        <input class="slider" type="range" step="0.01" />
+      </div>
+      <div class="region-control">
+        <button class="selected-region"></button>
+        <div class="region-panel"></div>
+      </div>
+    </div>
+  </div>
+  <script src="js/app.js"></script>
+</body>
+</html>

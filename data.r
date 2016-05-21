@@ -92,143 +92,143 @@ psu <- list(
   #     read_fwf(file = 'ccd-pubschuniv/psu86kn.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1986']], col_types = psu_col_types[['1986']]),
   #     read_fwf(file = 'ccd-pubschuniv/psu86ow.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1986']], col_types = psu_col_types[['1986']])
   #   ),
-  #   
+  #
   #   '1987' = rbind(
   #     read_fwf(file = 'ccd-pubschuniv/psu87ai.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1987']]), col_types = psu_col_types[['1987_2007']],
   #     read_fwf(file = 'ccd-pubschuniv/psu87kn.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1987']], col_types = psu_col_types[['1987_2007']]),
   #     read_fwf(file = 'ccd-pubschuniv/psu87ow.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1987']], col_types = psu_col_types[['1987_2007']])
   #   ),
-  #   
+  #
   #   '1988' = rbind(
   #     read_fwf(file = 'ccd-pubschuniv/psu88ai.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1988_1990']], col_types = psu_col_types[['1987_2007']]),
   #     read_fwf(file = 'ccd-pubschuniv/psu88kn.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1988_1990']], col_types = psu_col_types[['1987_2007']]),
   #     read_fwf(file = 'ccd-pubschuniv/psu88ow.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1988_1990']], col_types = psu_col_types[['1987_2007']])
   #   ),
-  #   
+  #
   #   '1989' = rbind(
   #     read_fwf(file = 'ccd-pubschuniv/psu89ai.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1988_1990']], col_types = psu_col_types[['1987_2007']]),
   #     read_fwf(file = 'ccd-pubschuniv/psu89kn.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1988_1990']], col_types = psu_col_types[['1987_2007']]),
   #     read_fwf(file = 'ccd-pubschuniv/psu89ow.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1988_1990']], col_types = psu_col_types[['1987_2007']])
   #   ),
-  #   
+  #
   #   '1990' = rbind(
   #     read_fwf(file = 'ccd-pubschuniv/psu90ai.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1988_1990']], col_types = psu_col_types[['1987_2007']]),
   #     read_fwf(file = 'ccd-pubschuniv/psu90kn.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1988_1990']], col_types = psu_col_types[['1987_2007']]),
   #     read_fwf(file = 'ccd-pubschuniv/psu90ow.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1988_1990']], col_types = psu_col_types[['1987_2007']])
   #   ),
-  #   
+  #
   #   '1991' = rbind(
   #     read_fwf(file = 'ccd-pubschuniv/psu91ai.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1991']], col_types = psu_col_types[['1987_2007']]),
   #     read_fwf(file = 'ccd-pubschuniv/psu91kn.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1991']], col_types = psu_col_types[['1987_2007']]),
   #     read_fwf(file = 'ccd-pubschuniv/psu91ow.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1991']], col_types = psu_col_types[['1987_2007']])
   #   ),
-  #   
+  #
   #   '1992' = rbind(
   #     read_fwf(file = 'ccd-pubschuniv/psu92ai.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1992_1997']], col_types = psu_col_types[['1987_2007']]),
   #     read_fwf(file = 'ccd-pubschuniv/psu92kn.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1992_1997']], col_types = psu_col_types[['1987_2007']]),
   #     read_fwf(file = 'ccd-pubschuniv/psu92ow.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1992_1997']], col_types = psu_col_types[['1987_2007']])
   #   ),
-  
+
   #########################################################################
   ### 1993 is the first year with >99% reporting of subgroup membership ###
   #########################################################################
-  
+
   '1993' = rbind(
     read_fwf(file = 'ccd-pubschuniv/psu93ai.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1992_1997']], col_types = psu_col_types[['1987_2007']]),
     read_fwf(file = 'ccd-pubschuniv/psu93kn.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1992_1997']], col_types = psu_col_types[['1987_2007']]),
     read_fwf(file = 'ccd-pubschuniv/psu93ow.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1992_1997']], col_types = psu_col_types[['1987_2007']])
   ),
-  
+
   '1994' = rbind(
     read_fwf(file = 'ccd-pubschuniv/sch94ai.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1992_1997']], col_types = psu_col_types[['1987_2007']]),
     read_fwf(file = 'ccd-pubschuniv/sch94kn.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1992_1997']], col_types = psu_col_types[['1987_2007']]),
     read_fwf(file = 'ccd-pubschuniv/sch94ow.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1992_1997']], col_types = psu_col_types[['1987_2007']])
   ),
-  
+
   '1995' = rbind(
     read_fwf(file = 'ccd-pubschuniv/schl95ai.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1992_1997']], col_types = psu_col_types[['1987_2007']]),
     read_fwf(file = 'ccd-pubschuniv/schl95kn.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1992_1997']], col_types = psu_col_types[['1987_2007']]),
     read_fwf(file = 'ccd-pubschuniv/schl95ow.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1992_1997']], col_types = psu_col_types[['1987_2007']])
   ),
-  
+
   '1996' = rbind(
     read_fwf(file = 'ccd-pubschuniv/sch96ai.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1992_1997']], col_types = psu_col_types[['1987_2007']]),
     read_fwf(file = 'ccd-pubschuniv/sch96kn.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1992_1997']], col_types = psu_col_types[['1987_2007']]),
     read_fwf(file = 'ccd-pubschuniv/sch96ow.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1992_1997']], col_types = psu_col_types[['1987_2007']])
   ),
-  
+
   '1997' = rbind(
     read_fwf(file = 'ccd-pubschuniv/psu97ai.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1992_1997']], col_types = psu_col_types[['1987_2007']]),
     read_fwf(file = 'ccd-pubschuniv/psu97kn.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1992_1997']], col_types = psu_col_types[['1987_2007']]),
     read_fwf(file = 'ccd-pubschuniv/psu97ow.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1992_1997']], col_types = psu_col_types[['1987_2007']])
   ),
-  
+
   '1998' = rbind(
     read_fwf(file = 'ccd-pubschuniv/sc981cai.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1998_1999']], col_types = psu_col_types[['1987_2007']]),
     read_fwf(file = 'ccd-pubschuniv/sc981ckn.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1998_1999']], col_types = psu_col_types[['1987_2007']]),
     read_fwf(file = 'ccd-pubschuniv/sc981cow.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1998_1999']], col_types = psu_col_types[['1987_2007']])
   ),
-  
+
   '1999' = rbind(
     read_fwf(file = 'ccd-pubschuniv/sc991bai.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1998_1999']], col_types = psu_col_types[['1987_2007']]),
     read_fwf(file = 'ccd-pubschuniv/sc991bkn.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1998_1999']], col_types = psu_col_types[['1987_2007']]),
     read_fwf(file = 'ccd-pubschuniv/sc991bow.txt', na = c('.','M','N'), col_positions = psu_col_positions[['1998_1999']], col_types = psu_col_types[['1987_2007']])
   ),
-  
+
   '2000' = rbind(
     read_fwf(file = 'ccd-pubschuniv/sc001aai.txt', na = c('.','M','N'), col_positions = psu_col_positions[['2000']], col_types = psu_col_types[['1987_2007']]),
     read_fwf(file = 'ccd-pubschuniv/sc001akn.txt', na = c('.','M','N'), col_positions = psu_col_positions[['2000']], col_types = psu_col_types[['1987_2007']]),
     read_fwf(file = 'ccd-pubschuniv/sc001aow.txt', na = c('.','M','N'), col_positions = psu_col_positions[['2000']], col_types = psu_col_types[['1987_2007']])
   ),
-  
+
   '2001' = rbind(
     read_fwf(file = 'ccd-pubschuniv/sc011aai.txt', na = c('.','M','N'), col_positions = psu_col_positions[['2001']], col_types = psu_col_types[['1987_2007']]),
     read_fwf(file = 'ccd-pubschuniv/sc011akn.txt', na = c('.','M','N'), col_positions = psu_col_positions[['2001']], col_types = psu_col_types[['1987_2007']]),
     read_fwf(file = 'ccd-pubschuniv/sc011aow.txt', na = c('.','M','N'), col_positions = psu_col_positions[['2001']], col_types = psu_col_types[['1987_2007']])
   ),
-  
+
   '2002' = rbind(
     read_fwf(file = 'ccd-pubschuniv/sc021aai.txt', na = c('.','M','N'), col_positions = psu_col_positions[['2002_2003']], col_types = psu_col_types[['1987_2007']]),
     read_fwf(file = 'ccd-pubschuniv/sc021akn.txt', na = c('.','M','N'), col_positions = psu_col_positions[['2002_2003']], col_types = psu_col_types[['1987_2007']]),
     read_fwf(file = 'ccd-pubschuniv/sc021aow.txt', na = c('.','M','N'), col_positions = psu_col_positions[['2002_2003']], col_types = psu_col_types[['1987_2007']])
   ),
-  
+
   '2003' = rbind(
     read_fwf(file = 'ccd-pubschuniv/sc031aai.txt', na = c('.','M','N'), col_positions = psu_col_positions[['2002_2003']], col_types = psu_col_types[['1987_2007']]),
     read_fwf(file = 'ccd-pubschuniv/sc031akn.txt', na = c('.','M','N'), col_positions = psu_col_positions[['2002_2003']], col_types = psu_col_types[['1987_2007']]),
     read_fwf(file = 'ccd-pubschuniv/sc031aow.txt', na = c('.','M','N'), col_positions = psu_col_positions[['2002_2003']], col_types = psu_col_types[['1987_2007']])
   ),
-  
+
   '2004' = rbind(
     read_fwf(file = 'ccd-pubschuniv/sc041bai.txt', na = c('.','M','N'), col_positions = psu_col_positions[['2004']], col_types = psu_col_types[['1987_2007']]),
     read_fwf(file = 'ccd-pubschuniv/sc041bkn.txt', na = c('.','M','N'), col_positions = psu_col_positions[['2004']], col_types = psu_col_types[['1987_2007']]),
     read_fwf(file = 'ccd-pubschuniv/sc041bow.txt', na = c('.','M','N'), col_positions = psu_col_positions[['2004']], col_types = psu_col_types[['1987_2007']])
   ),
-  
+
   '2005' = rbind(
     read_fwf(file = 'ccd-pubschuniv/sc051aai.txt', na = c('.','M','N'), col_positions = psu_col_positions[['2005']], col_types = psu_col_types[['1987_2007']]),
     read_fwf(file = 'ccd-pubschuniv/sc051akn.txt', na = c('.','M','N'), col_positions = psu_col_positions[['2005']], col_types = psu_col_types[['1987_2007']]),
     read_fwf(file = 'ccd-pubschuniv/sc051aow.txt', na = c('.','M','N'), col_positions = psu_col_positions[['2005']], col_types = psu_col_types[['1987_2007']])
   ),
-  
+
   '2006' = rbind(
     read_fwf(file = 'ccd-pubschuniv/sc061cai.txt', na = c('.','M','N'), col_positions = psu_col_positions[['2006']], col_types = psu_col_types[['1987_2007']]),
     read_fwf(file = 'ccd-pubschuniv/sc061ckn.txt', na = c('.','M','N'), col_positions = psu_col_positions[['2006']], col_types = psu_col_types[['1987_2007']]),
     read_fwf(file = 'ccd-pubschuniv/sc061cow.txt', na = c('.','M','N'), col_positions = psu_col_positions[['2006']], col_types = psu_col_types[['1987_2007']])
   ),
-  
+
   '2007' = read_tsv('ccd-pubschuniv/sc071b.txt', na = c('M','N'), skip = 1, col_names = psu_col_names[['2007']], col_types = psu_col_types[['1987_2007']]),
-  
+
   '2008' = read_tsv('ccd-pubschuniv/sc081b.txt', na = c('M','N'), skip = 1, col_names = psu_col_names[['2008']], col_types = psu_col_types[['2008_2013']]),
-  
+
   '2009' = read_tsv('ccd-pubschuniv/sc092a.txt', na = c('M','N'), skip = 1, col_names = psu_col_names[['2009']], col_types = psu_col_types[['2008_2013']]),
-  
+
   '2010' = read_tsv('ccd-pubschuniv/sc102a.txt', na = c('M','N'), skip = 1, col_names = psu_col_names[['2010']], col_types = psu_col_types[['2008_2013']]),
-  
+
   '2011' = read_tsv('ccd-pubschuniv/sc111a_supp.txt', na = c('M','N'), skip = 1, col_names = psu_col_names[['2011']], col_types = psu_col_types[['2008_2013']]),
-  
+
   '2012' = read_tsv('ccd-pubschuniv/sc121a_supp.txt', na = c('M','N'), skip = 1, col_names = psu_col_names[['2012']], col_types = psu_col_types[['2008_2013']]),
-  
+
   '2013' = read_tsv('ccd-pubschuniv/sc131a_supp.txt', na = c('M','N'), skip = 1, col_names = psu_col_names[['2013']], col_types = psu_col_types[['2008_2013']])
 )
 
@@ -246,30 +246,30 @@ output <- list()
 
 for (.year in names(psu)) {
   .data <- psu[[.year]]
-  
+
   # Set missing values to 0
   .data[is.na(.data)] <- 0
   .data[, -1][.data[, -1] < 0] <- 0
-  
+
   # Combine Asian and Pacific Islander
   if ('PACIFIC' %in% names(.data)) {
     .data$ASIAN <- .data$ASIAN + .data$PACIFIC
     .data <- .data[, names(.data) != 'PACIFIC']
   }
-  
+
   # Add empty multiracial column if prior to 2008
   if (!'TR' %in% names(.data)) { .data$TR <- 0 }
-  
+
   # Drop any school without students categorized by race/ethnicity
   .data$TOTETH <- rowSums(.data[, names(.data) %in% races])
   .data <- .data[.data$TOTETH > 0,]
-  
+
   # Calculate the percentage of total enrollment by race
   for (.race in races) { .data[, paste0(.race, '_RATE')] <- .data[,.race] / .data$TOTETH }
-  
+
   # Using the rates of white, black, and Hispanic enrollment, we position each school in a triangle,
   # with each rate acting like a force pulling it from the center towards a vertex
-  
+
   #           WHITE (w/2,w/2*√3)
   #            / \
   #           /   \
@@ -278,11 +278,11 @@ for (.year in names(psu)) {
   #        /         \
   # BLACK /___________\ HISP
   # (0,0)               (w,0)
-  
+
   .data$OTHER_RATE <- rowSums(.data[, names(.data) %in% c('AM_RATE','ASIAN_RATE','TR_RATE')])
   .data$x <- ((.data$WHITE_RATE + .data$OTHER_RATE) * (triangle_width / 2)) + (.data$HISP_RATE * triangle_width)
   .data$y <- (.data$OTHER_RATE * (triangle_width / 6 * sqrt(3))) + (.data$WHITE_RATE * (triangle_width / 2 * sqrt(3)))
-  
+
   .append_result <- function (subset = .data, name = 'all') {
     # We bin schools using a hexbin function
     .hbin <- hexbin(subset$x, subset$y, IDs = TRUE,
@@ -290,52 +290,52 @@ for (.year in names(psu)) {
                     shape = sqrt(3) / 2,
                     xbnds = c(0, triangle_width),
                     ybnds = c(0, triangle_width / 2 * sqrt(3)))
-    
+
     .bins <- as.data.frame(hcell2xy(.hbin))
     .bins$schools <- .hbin@count
     for (.race in races) { .bins[, tolower(.race)] <- c(hexTapply(.hbin, subset[, .race], sum)) }
-    
+
     # We transform the (x, y) coordinate into a simpler (cellFromLeft, rowFromBottom) coordinate
     .bins$x <- apply(.bins, 1, function (row) match(row[['x']], unique(.bins[.bins$y == row[['y']], 'x'])))
     .bins$y <- match(.bins$y, unique(.bins$y))
-    
+
     # Build a histogram of students/schools by school racial/ethnic composition
     .hist <- data.frame('cut' = hist_breaks[-1])
-    
+
     for (.race in races) {
       # Number of students by school racial/ethnic composition
       .students <- aggregate(subset[, .race], list(cut(subset[, paste0(.race, '_RATE')], breaks = hist_breaks, labels = .hist$cut)), sum)
       names(.students) <- c('cut', tolower(.race))
       .hist <- merge(.hist, .students, all = TRUE)
-      
+
       # Count of schools by racial/ethnic composition
       .schools <- as.data.frame(table(cut(subset[, paste0(.race, '_RATE')], breaks = hist_breaks, labels = .hist$cut)))
       names(.schools) <- c('cut', paste0(tolower(.race), '_schools'))
       .hist <- merge(.hist, .schools, all = TRUE)
     }
-    
+
     # NAs become zeros
     .hist[is.na(.hist)] <- 0
-    
+
     .result <- list(
       'triangle' = .bins,
       'histogram' = .hist
     )
-    
+
     if (!name %in% names(output)) {
       output[[name]] <<- list()
     }
-    
+
     output[[name]][[.year]] <<- .result
   }
 
   .append_result()
-  
+
   for (.state in unique(.data$FIPST)) {
     .subset <- .data[.data$FIPST == .state,]
     .append_result(subset = .subset, name = .state)
   }
-  
+
   for (.region in names(regions)) {
     .subset <- .data[.data$FIPST %in% regions[[.region]],]
     .append_result(subset = .subset, name = .region)
