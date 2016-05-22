@@ -2,358 +2,358 @@
  {
    "name":"United States",
    "abbr":"US",
-   "file":"all",
+   "id":"all"
  },
  {
    "name":"Northeast",
-   "file":"northeast",
+   "id":"northeast"
  },
  {
    "name":"Midwest",
-   "file":"midwest",
+   "id":"midwest"
  },
  {
    "name":"South",
-   "file":"south",
+   "id":"south"
  },
  {
    "name":"West",
-   "file":"west",
+   "id":"west"
  },
  {
    "name":"Alabama",
    "abbr":"AL",
-   "file":"01",
+   "id":"01",
    "region":"South"
  },
  {
    "name":"Alaska",
    "abbr":"AK",
-   "file":"02",
+   "id":"02",
    "region":"West"
  },
  {
    "name":"Arizona",
    "abbr":"AZ",
-   "file":"04",
+   "id":"04",
    "region":"West"
  },
  {
    "name":"Arkansas",
    "abbr":"AR",
-   "file":"05",
+   "id":"05",
    "region":"South"
  },
  {
    "name":"California",
    "abbr":"CA",
-   "file":"06",
+   "id":"06",
    "region":"West"
  },
  {
    "name":"Colorado",
    "abbr":"CO",
-   "file":"08",
+   "id":"08",
    "region":"West"
  },
  {
    "name":"Connecticut",
    "abbr":"CT",
-   "file":"09",
+   "id":"09",
    "region":"Northeast"
  },
  {
    "name":"Delaware",
    "abbr":"DE",
-   "file":"10",
+   "id":"10",
    "region":"South"
  },
  {
    "name":"District of Columbia",
    "abbr":"DC",
-   "file":"11",
+   "id":"11",
    "region":"South"
  },
  {
    "name":"Florida",
    "abbr":"FL",
-   "file":"12",
+   "id":"12",
    "region":"South"
  },
  {
    "name":"Georgia",
    "abbr":"GA",
-   "file":"13",
+   "id":"13",
    "region":"South"
  },
  {
    "name":"Hawaii",
    "abbr":"HI",
-   "file":"15",
+   "id":"15",
    "region":"West"
  },
  {
    "name":"Idaho",
    "abbr":"ID",
-   "file":"16",
+   "id":"16",
    "region":"West"
  },
  {
    "name":"Illinois",
    "abbr":"IL",
-   "file":"17",
+   "id":"17",
    "region":"Midwest"
  },
  {
    "name":"Indiana",
    "abbr":"IN",
-   "file":"18",
+   "id":"18",
    "region":"Midwest"
  },
  {
    "name":"Iowa",
    "abbr":"IA",
-   "file":"19",
+   "id":"19",
    "region":"Midwest"
  },
  {
    "name":"Kansas",
    "abbr":"KS",
-   "file":"20",
+   "id":"20",
    "region":"Midwest"
  },
  {
    "name":"Kentucky",
    "abbr":"KY",
-   "file":"21",
+   "id":"21",
    "region":"South"
  },
  {
    "name":"Louisiana",
    "abbr":"LA",
-   "file":"22",
+   "id":"22",
    "region":"South"
  },
  {
    "name":"Maine",
    "abbr":"ME",
-   "file":"23",
+   "id":"23",
    "region":"Northeast"
  },
  {
    "name":"Maryland",
    "abbr":"MD",
-   "file":"24",
+   "id":"24",
    "region":"South"
  },
  {
    "name":"Massachusetts",
    "abbr":"MA",
-   "file":"25",
+   "id":"25",
    "region":"Northeast"
  },
  {
    "name":"Michigan",
    "abbr":"MI",
-   "file":"26",
+   "id":"26",
    "region":"Midwest"
  },
  {
    "name":"Minnesota",
    "abbr":"MN",
-   "file":"27",
+   "id":"27",
    "region":"Midwest"
  },
  {
    "name":"Mississippi",
    "abbr":"MS",
-   "file":"28",
+   "id":"28",
    "region":"South"
  },
  {
    "name":"Missouri",
    "abbr":"MO",
-   "file":"29",
+   "id":"29",
    "region":"Midwest"
  },
  {
    "name":"Montana",
    "abbr":"MT",
-   "file":"30",
+   "id":"30",
    "region":"West"
  },
  {
    "name":"Nebraska",
    "abbr":"NE",
-   "file":"31",
+   "id":"31",
    "region":"Midwest"
  },
  {
    "name":"Nevada",
    "abbr":"NV",
-   "file":"32",
+   "id":"32",
    "region":"West"
  },
  {
    "name":"New Hampshire",
    "abbr":"NH",
-   "file":"33",
+   "id":"33",
    "region":"Northeast"
  },
  {
    "name":"New Jersey",
    "abbr":"NJ",
-   "file":"34",
+   "id":"34",
    "region":"Northeast"
  },
  {
    "name":"New Mexico",
    "abbr":"NM",
-   "file":"35",
+   "id":"35",
    "region":"West"
  },
  {
    "name":"New York",
    "abbr":"NY",
-   "file":"36",
+   "id":"36",
    "region":"Northeast"
  },
  {
    "name":"North Carolina",
    "abbr":"NC",
-   "file":"37",
+   "id":"37",
    "region":"South"
  },
  {
    "name":"North Dakota",
    "abbr":"ND",
-   "file":"38",
+   "id":"38",
    "region":"Midwest"
  },
  {
    "name":"Ohio",
    "abbr":"OH",
-   "file":"39",
+   "id":"39",
    "region":"Midwest"
  },
  {
    "name":"Oklahoma",
    "abbr":"OK",
-   "file":"40",
+   "id":"40",
    "region":"South"
  },
  {
    "name":"Oregon",
    "abbr":"OR",
-   "file":"41",
+   "id":"41",
    "region":"West"
  },
  {
    "name":"Pennsylvania",
    "abbr":"PA",
-   "file":"42",
+   "id":"42",
    "region":"Northeast"
  },
  {
    "name":"Rhode Island",
    "abbr":"RI",
-   "file":"44",
+   "id":"44",
    "region":"Northeast"
  },
  {
    "name":"South Carolina",
    "abbr":"SC",
-   "file":"45",
+   "id":"45",
    "region":"South"
  },
  {
    "name":"South Dakota",
    "abbr":"SD",
-   "file":"46",
+   "id":"46",
    "region":"Midwest"
  },
  {
    "name":"Tennessee",
    "abbr":"TN",
-   "file":"47",
+   "id":"47",
    "region":"South"
  },
  {
    "name":"Texas",
    "abbr":"TX",
-   "file":"48",
+   "id":"48",
    "region":"South"
  },
  {
    "name":"Utah",
    "abbr":"UT",
-   "file":"49",
+   "id":"49",
    "region":"West"
  },
  {
    "name":"Vermont",
    "abbr":"VT",
-   "file":"50",
+   "id":"50",
    "region":"Northeast"
  },
  {
    "name":"Virginia",
    "abbr":"VA",
-   "file":"51",
+   "id":"51",
    "region":"South"
  },
  {
    "name":"Washington",
    "abbr":"WA",
-   "file":"53",
+   "id":"53",
    "region":"West"
  },
  {
    "name":"West Virginia",
    "abbr":"WV",
-   "file":"54",
+   "id":"54",
    "region":"South"
  },
  {
    "name":"Wisconsin",
    "abbr":"WI",
-   "file":"55",
+   "id":"55",
    "region":"Midwest"
  },
  {
    "name":"Wyoming",
    "abbr":"WY",
-   "file":"56",
+   "id":"56",
    "region":"West"
  },
  {
    "name":"American Samoa",
    "abbr":"AS",
-   "file":"60",
+   "id":"60",
    "region":"Unincorporated territories"
  },
  {
    "name":"Guam",
    "abbr":"GU",
-   "file":"66",
+   "id":"66",
    "region":"Unincorporated territories"
  },
  {
    "name":"Northern Mariana Islands",
    "abbr":"MP",
-   "file":"69",
+   "id":"69",
    "region":"Unincorporated territories"
  },
  {
    "name":"Puerto Rico",
    "abbr":"PR",
-   "file":"72",
+   "id":"72",
    "region":"Unincorporated territories"
  },
  {
    "name":"Virgin Islands",
    "abbr":"VI",
-   "file":"78",
+   "id":"78",
    "region":"Unincorporated territories"
  }
 ]
