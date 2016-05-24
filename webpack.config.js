@@ -25,7 +25,7 @@ module.exports = {
   entry: {
     // As an array so that we can unshift in the HMR plugin if we need to
     app: [
-      './src/js/app.js'
+      './src/app.js'
     ]
     // Separate bundle for any production dependencies.
     // TODO: Uncomment and add third-party dependencies as needed

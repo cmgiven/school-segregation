@@ -1,5 +1,5 @@
-import '../index.html';
-import '../assets/styles/app.scss';
+import './index.html';
+import './assets/styles/app.scss';
 
 import { json as d3_json } from 'd3-request';
 import { select, event } from 'd3-selection';
@@ -18,7 +18,7 @@ const Sections = requireAll(require.context('./sections/', false, /^\.\/.*\.js$/
 const controlContainer = select('#controls .container');
 const sectionContainer = select('main');
 
-const regions = require('../assets/data/regions.json');
+const regions = require('./assets/data/regions.json');
 
 const dataPathForId = (id) => `/data/${id}.json`;
 
