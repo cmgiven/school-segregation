@@ -2,16 +2,12 @@ import '../index.html';
 import '../assets/styles/app.scss';
 
 import { json as d3_json } from 'd3-request';
+import { select, event } from 'd3-selection';
 
 import { requireAll } from './utils.js';
 
-const DATA_PATH_FOR_ID = (id) => `/data/${id}.json`;
-const REGIONS = require('../assets/data/regions.json');
 const START_YEAR = 1993;
 const END_YEAR = 2013;
-
-const SECTION_CONTAINER = 'main';
-const CONTROL_CONTAINER = '#controls';
 
 const TRANSITION_DURATION = 300; // 18 frames
 const SNAP_DURATION = 83; // 5 frames
@@ -19,71 +15,90 @@ const SNAP_DURATION = 83; // 5 frames
 const Controls = requireAll(require.context('./controls/', false, /^\.\/.*\.js$/));
 const Sections = requireAll(require.context('./sections/', false, /^\.\/.*\.js$/));
 
+const controlContainer = select('#controls .container');
+const sectionContainer = select('main');
+
+const regions = require('../assets/data/regions.json');
+
+const dataPathForId = (id) => `/data/${id}.json`;
+
 const app = {
   globals: {
     controlsVisible: false,
     animating: false,
     year: END_YEAR,
     roundYear: END_YEAR,
-    region: 'all',
-    data: null,
+    region: undefined,
+    data: null
   },
 
   controls: [],
   sections: [],
-  activeSection: null,
+  activeSection: undefined,
 
   transitionQueue: [],
   activeTransitions: {},
   needsUpdate: false,
 
   initialize: function () {
-    let { location, params } = app.getHash();
+    app.controls = Controls.map((C) => new C({ container: controlContainer, owner: app }));
+    app.sections = Sections.map((S) => new S({ container: sectionContainer, owner: app }));
 
-    app.controls = Controls.map((C) => new C(CONTROL_CONTAINER, app));
-    app.sections = Sections.map((S) => new S(SECTION_CONTAINER, app));
+    app.loadStateFromHash();
 
-    let sectionIdx = location ? Math.max(app.sections.findIndex((s) => s.id === location), 0) : 0;
+    select(window)
+      .on('resize', app.resize)
+      .on('hashchange', app.loadStateFromHash)
+      .on('keydown', function () {
+        switch (event.which) {
+        case 32: // space
+          app.toggleAnimation();
+          break;
 
-    if (params) {
-      let regionP = params.find((p) => p[0] === 'region');
-      if (regionP) { app.globals.region = regionP[1]; }
-    }
+        default:
+          return;
+        }
 
-    app.setSection(sectionIdx)
-    app.loadData();
+        event.preventDefault();
+      });
   },
 
   setSection: function (idx) {
+    console.log(idx);
     if (idx < 0 || idx >= app.sections.length) { return; }
 
     let currentSection = app.activeSection;
-    let currentIdx = app.sections.findIndex(currentSection);
-
-    if (currentIdx === idx) { return; }
-
     app.activeSection = app.sections[idx];
 
-    // TODO: show/hide the sections
+    if (currentSection) {
+      let currentIdx = app.sections.findIndex((s) => s === currentSection);
+      if (currentIdx === idx) { return; }
+
+      // TODO: animate in/out the sections
+      currentSection.wrap.classed('visible', false);
+      app.activeSection.wrap.classed('visible', true);
+    } else {
+      app.activeSection.wrap.classed('visible', true);
+    }
 
     app.resize();
     app.setHash();
   },
 
   loadData: function () {
-    let path = DATA_PATH_FOR_ID(app.globals.region);
+    let path = dataPathForId(app.globals.region.id);
     d3_json(path, function (data) {
-      app.enqueueTransitions([{ key: 'data', value: data }])
+      app.enqueueTransitions([{ key: 'data', value: data }]);
     });
   },
 
   resize: function () {
-    if (app.activeSection.resize) { app.activeSection.resize(); }
+    if (app.activeSection && app.activeSection.resize) { app.activeSection.resize(app.globals); }
     // app.controls.forEach(function (c) { if (c.resize) { c.resize(); } });
   },
 
   update: function () {
-    if (app.activeSection.update) { app.activeSection.update(app.globals); }
+    if (app.activeSection && app.activeSection.update) { app.activeSection.update(app.globals); }
     app.controls.forEach(function (c) { if (c.update) { c.update(app.globals); } });
   },
 
@@ -125,8 +140,7 @@ const app = {
       if (updatedProps.region) { updatedProps.data = null; app.loadData(); }
 
       updatedProps.animating = app.activeTransitions.year &&
-        app.activeTransitions.year.duration > SNAP_DURATION ?
-        true : false;
+        app.activeTransitions.year.duration > SNAP_DURATION;
 
       app.globals = Object.assign({}, app.globals, updatedProps);
       app.update();
@@ -188,12 +202,26 @@ const app = {
   },
 
   setRegion: function (id) {
-    app.enqueueTransitions([{ key: 'region', value: id }]);
+    app.enqueueTransitions([{ key: 'region', value: regions.find((d) => d.id === id) }]);
     app.setHashParam('region', id);
   },
 
   setControlsVisibility: function (visible) {
     app.enqueueTransitions([{ key: 'controlsVisible', value: visible }]);
+  },
+
+  loadStateFromHash: function () {
+    let { location, params } = app.getHash();
+
+    let sectionIdx = location ? Math.max(app.sections.findIndex((s) => s.id === location), 0) : 0;
+
+    if (params) {
+      let regionP = params.find((p) => p[0] === 'region');
+      let regionId = regionP ? regionP[1] : 'all';
+      app.globals.region = regions.find((d) => d.id === regionId);
+    }
+
+    app.setSection(sectionIdx);
   },
 
   getHash: function () {
@@ -219,6 +247,6 @@ const app = {
     let params = currentParams.filter((p) => p[0] !== key).push([key, value]);
     app.setHash(undefined, params);
   }
-}
+};
 
 app.initialize();

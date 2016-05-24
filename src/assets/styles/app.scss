@@ -1,1 +1,79 @@
 @import 'base';
+
+$white      : #fff;
+$background : #f4f4f4;
+$border     : #d6d6d6;
+$body       : #333;
+
+$header-height: 44px;
+$footer-height: 60px;
+
+html { box-sizing: border-box; }
+*, *:before, *:after { box-sizing: inherit; }
+
+body {
+  font-family: 'Lato', 'Helvetica Neue', sans-serif;
+  color: $body;
+  background: $background;
+}
+
+// ##############
+// ### LAYOUT ###
+// ##############
+
+html, body, #app { height: 100%; }
+
+header {
+  position: absolute;
+  top: 0;
+  width: 100%; height: $header-height;
+  overflow: hidden;
+  background: $white;
+  border-bottom: 1px solid $border;
+
+  h1 {
+    margin-top: 0;
+    font-size: 22px;
+    line-height: $header-height;
+  }
+}
+
+main {
+  position: absolute;
+  top: $header-height; bottom: 0;
+  left: 0; right: 0;
+}
+
+div.section-wrap {
+  display: none;
+  &.visible { display: block; }
+
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+}
+
+div.container {
+  max-width: 1020px;
+  margin: 0 auto;
+  padding: 0 1em;
+}
+
+div.section {
+  width: 100%; height: 100%;
+  @extend div.container;
+
+  overflow: scroll;
+}
+
+p {
+  max-width: 42em;
+}
+
+#controls {
+  position: absolute;
+  bottom: 0;
+  width: 100%; height: $footer-height;
+  background: $white;
+  border-top: 1px solid $border;
+}

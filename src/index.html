@@ -5,35 +5,32 @@
   <meta name="description" content="Visualizing the increasing racial segregation of U.S. public schools">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>School Segregation</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
 </head>
 <body>
   <div id="app">
     <header>
-      <h1>School Segregation</h1>
-      <nav id="section-nav">
-        <a href="" class="prev-section disabled">Previous Section</a>
-        <span class="current-section"></span>
-        <a href="" class="next-section disabled">Next Section</a>
-      </nav>
-    </header>
-    <main>
-      <section id="introduction">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam egestas gravida libero, at posuere magna consequat ac. Integer volutpat sollicitudin quam. Etiam fringilla lacus eget eros commodo, id volutpat massa tristique. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam erat volutpat. Maecenas finibus gravida metus. Maecenas elementum massa ut libero semper vulputate. Etiam vel magna in lectus laoreet aliquam at id mauris. Proin pharetra lorem purus, non molestie turpis cursus in. Suspendisse vehicula dui libero, id tempor lectus posuere id. Ut ut porta mi. Sed porttitor pulvinar cursus. Etiam tempor eros at orci ornare dapibus. Aliquam viverra pulvinar nisi in rutrum.</p>
-        <a href="#triangle">Start</a>
-      </section>
-      <section id="triangle"></section>
-      <section id="histograms"></section>
-      <section id="notes"></section>
-    </main>
-    <div id="controls" class="hidden">
-      <div class="year-control">
-        <button class="play-button"></button>
-        <span class="label"></span>
-        <input class="slider" type="range" step="0.01" />
+      <div class="container">
+        <h1>School Segregation</h1>
+        <nav id="section-nav">
+          <a href="" class="prev-section disabled">Previous Section</a>
+          <span class="current-section"></span>
+          <a href="" class="next-section disabled">Next Section</a>
+        </nav>
       </div>
-      <div class="region-control">
-        <button class="selected-region"></button>
-        <div class="region-panel"></div>
+    </header>
+    <main></main>
+    <div id="controls" class="hidden">
+      <div class="container">
+        <div class="year-control">
+          <button class="play-button"></button>
+          <span class="label"></span>
+          <input class="slider" type="range" step="0.01" />
+        </div>
+        <div class="region-control">
+          <button class="selected-region"></button>
+          <div class="region-panel"></div>
+        </div>
       </div>
     </div>
   </div>

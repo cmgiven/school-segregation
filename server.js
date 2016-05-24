@@ -2,7 +2,7 @@ var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 var config = require('./webpack.config');
 var options = require('minimist')(process.argv.slice(2));
-var publicPath = "http://localhost:" +  + config.devServer.port;
+var publicPath = "http://localhost:" + config.devServer.port;
 
 // attempt to hot-swap modules
 if (options.hot) {
@@ -15,7 +15,7 @@ if (options.hot) {
 }
 
 new WebpackDevServer(webpack(config), config.devServer)
-  .listen(config.devServer.port, 'localhost', function(err)  {
+  .listen(config.devServer.port, 'localhost', function(err) {
     if (err) {
       console.log(err);
     }
