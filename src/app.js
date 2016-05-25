@@ -5,12 +5,7 @@ import { json as d3_json } from 'd3-request';
 import { select, event } from 'd3-selection';
 
 import { requireAll } from './utils.js';
-
-const START_YEAR = 1993;
-const END_YEAR = 2013;
-
-const TRANSITION_DURATION = 300; // 18 frames
-const SNAP_DURATION = 83; // 5 frames
+import { TRANSITION_DURATION, SNAP_DURATION, END_YEAR, START_YEAR } from './config.js';
 
 const Controls = requireAll(require.context('./controls/', false, /^\.\/.*\.js$/));
 const Sections = requireAll(require.context('./sections/', false, /^\.\/.*\.js$/));
@@ -64,7 +59,6 @@ const app = {
   },
 
   setSection: function (idx) {
-    console.log(idx);
     if (idx < 0 || idx >= app.sections.length) { return; }
 
     let currentSection = app.activeSection;
@@ -94,7 +88,7 @@ const app = {
 
   resize: function () {
     if (app.activeSection && app.activeSection.resize) { app.activeSection.resize(app.globals); }
-    // app.controls.forEach(function (c) { if (c.resize) { c.resize(); } });
+    app.controls.forEach(function (c) { if (c.resize) { c.resize(app.globals); } });
   },
 
   update: function () {

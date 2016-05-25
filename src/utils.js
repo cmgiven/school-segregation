@@ -6,6 +6,8 @@ export class Component {
     this.el = options.container.append('div');
     this.owner = options.owner;
   }
+
+  resize(props) { if (this.update) { this.update(props); } }
 }
 
 export class Section extends Component {

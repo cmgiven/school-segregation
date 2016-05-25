@@ -3,7 +3,10 @@
 $white      : #fff;
 $background : #f4f4f4;
 $border     : #d6d6d6;
+$mingray    : #777;
+$hovergray  : #555;
 $body       : #333;
+$link       : #0476C7;
 
 $header-height: 44px;
 $footer-height: 60px;
@@ -17,9 +20,9 @@ body {
   background: $background;
 }
 
-// ##############
-// ### LAYOUT ###
-// ##############
+// ############## //
+// ### LAYOUT ### //
+// ############## //
 
 html, body, #app { height: 100%; }
 
@@ -54,6 +57,7 @@ div.section-wrap {
 }
 
 div.container {
+  position: relative;
   max-width: 1020px;
   margin: 0 auto;
   padding: 0 1em;
@@ -76,4 +80,119 @@ p {
   width: 100%; height: $footer-height;
   background: $white;
   border-top: 1px solid $border;
+
+  .container {
+    height: 100%;
+  }
+}
+
+// ################ //
+// ### CONTROLS ### //
+// ################ //
+
+.year-control {
+  position: absolute;
+  top: 0; left: 0; right: $footer-height;
+  padding: 0 1em;
+
+   .slider {
+    -webkit-appearance:none !important;
+    height: 3px;
+    background: $mingray;
+    border-radius: 3px;
+    position: absolute;
+    top: $footer-height / 2 - 5;
+    left: 12em; right: 2em;
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance:none !important;
+      content: "|||";
+      width: 28px;
+      height: 28px;
+      border-radius: 28px;
+      border: 2px solid $mingray;
+      background: $white;
+
+      &:hover {
+        border-color: $hovergray;
+      }
+     }
+   }
+
+  .label {
+    margin-left: 10px;
+    line-height: $footer-height - 4;
+  }
+
+  .play-button {
+    position: relative;
+    top: -($footer-height - 44px) / 2 + 2;
+    width: 44px;
+    height: 44px;
+    margin: 0 4px;
+    border: 2px solid $mingray;
+    border-radius: 44px;
+    background: none;
+    overflow: hidden;
+    text-indent: 44px;
+    transition: border-color 250ms ease;
+    cursor: pointer;
+
+    &:hover {
+      border-color: $hovergray;
+    }
+
+    &.disabled {
+      border-color: $border;
+    }
+
+    &.paused:before {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 0; height: 0;
+      top: 12px;
+      left: 16px;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-left: 12px solid $mingray;
+      transition: border-color 250ms ease;
+    }
+
+    &.paused:hover:before {
+      border-left-color: $hovergray;
+    }
+
+    &.paused.disabled:before {
+      border-left-color: $border;
+    }
+
+    &.playing:after {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 12px; height: 14px;
+      top: 13px;
+      left: 14px;
+      border-right: 4px solid $mingray;
+      border-left: 4px solid $mingray;
+      transition: border-color 250ms ease;
+    }
+
+    &.playing:hover:after {
+      border-color: $hovergray;
+    }
+  }
+}
+
+.region-control {
+  position: absolute;
+  top: 0; right: 0;
+  width: $footer-height;
+  height: 100%;
+
+  .selected-region {
+    width: 100%;
+    height: 100%;
+  }
 }
