@@ -1,4 +1,4 @@
-import { Component } from '../utils.js';
+import { Component, diff } from '../utils.js';
 
 import { event } from 'd3-selection';
 
@@ -8,9 +8,9 @@ const SLIDER_WIDTH = 28;
 export default class extends Component {
   constructor(options) {
     super(options);
+    this.id = 'year-control';
+    this.el.classed('control ' + this.id, true);
     let control = this;
-    this.lastProps = {};
-    this.el.classed('year-control control', true);
 
     this.playButton = this.el.append('button')
       .attr('class', 'play-button')
@@ -45,30 +45,23 @@ export default class extends Component {
   }
 
   update(props) {
-    var updated = false;
+    let control = this;
 
-    if (props.roundYear !== this.lastProps.roundYear) {
-      this.label.text(props.roundYear);
-      updated = true;
-    }
-
-    if (props.year !== this.lastProps.year) {
-      if (!this.rangeSliderActive) { this.slider.node().value = props.year; }
-      updated = true;
-    }
-
-    if (props.animating !== this.lastProps.animating) {
-      if (props.animating) {
-        this.playButton.classed('paused', false);
-        this.playButton.classed('playing', true);
-      } else {
-        this.playButton.classed('playing', false);
-        this.playButton.classed('paused', true);
-      }
-
-      updated = true;
-    }
-
-    if (updated) { Object.assign(this.lastProps, props); }
+    diff(props, this.id)
+      .ifDiff('roundYear', function (p) {
+        control.label.text(p.roundYear);
+      })
+      .ifDiff('year', function (p) {
+        if (!control.rangeSliderActive) { control.slider.node().value = props.year; }
+      })
+      .ifDiff('animating', function (p) {
+        if (p.animating) {
+          control.playButton.classed('paused', false);
+          control.playButton.classed('playing', true);
+        } else {
+          control.playButton.classed('playing', false);
+          control.playButton.classed('paused', true);
+        }
+      });
   }
 }

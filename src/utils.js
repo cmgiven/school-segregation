@@ -21,3 +21,28 @@ export class Section extends Component {
   resize(props) { this.components.forEach(function (c) { if (c.resize) { c.resize(props); } }); }
   update(props) { this.components.forEach(function (c) { if (c.update) { c.update(props); } }); }
 }
+
+let cachedProps = {};
+
+export function diff(props, id) {
+  let oldProps = cachedProps[id] || {};
+  cachedProps[id] = props;
+
+  function ifDiff(keys, callback) {
+    let changed = false;
+    let obj = {};
+
+    keys = typeof keys === 'string' ? [keys] : keys;
+
+    keys.forEach(function (key) {
+      obj[key] = props[key];
+      if (props[key] !== oldProps[key]) { changed = true; }
+    });
+
+    if (changed) { callback(obj); }
+
+    return this;
+  }
+
+  return { ifDiff };
+}
