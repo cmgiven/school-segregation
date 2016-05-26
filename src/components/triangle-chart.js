@@ -4,9 +4,9 @@ import { scaleLinear, scalePow } from 'd3-scale';
 
 const MIN_MARGIN = { top: 5, right: 15, bottom: 30, left: 15 };
 const ALT_X = Math.sqrt(3) / 2;
-const TRIANGLE_LENGTH = 16;
+const TRIANGLE_LENGTH = 10;
 const STROKE_WIDTH = 1;
-const MAX_N = 10000000;
+const MAX_N = 15000000;
 const RACES = ['white', 'asian', 'hisp', 'am', 'black', 'tr'];
 
 export default class TriangleChart extends Component {
@@ -33,7 +33,7 @@ export default class TriangleChart extends Component {
     );
     chart.height = chart.width * ALT_X;
 
-    chart.hexWidth = chart.width / TRIANGLE_LENGTH - STROKE_WIDTH * 2;
+    chart.hexWidth = chart.width / TRIANGLE_LENGTH - STROKE_WIDTH * 4;
     chart.hexHeight = chart.hexWidth * ALT_X;
 
     chart.triangleScale = scalePow()

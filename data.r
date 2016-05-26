@@ -239,7 +239,7 @@ regions <- list(
   'south' = c(1,5,10,11,12,13,21,22,24,28,37,40,45,47,48,51,54),
   'west' = c(2,4,6,8,15,16,30,32,35,41,49,53,56)
 )
-triangle_width <- 15
+triangle_width <- 9
 hist_breaks <- 0:20 / 20
 
 output <- list()
