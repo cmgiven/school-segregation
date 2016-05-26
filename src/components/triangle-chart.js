@@ -3,9 +3,9 @@ import { Component, diff } from '../utils.js';
 import { scaleLinear, scalePow } from 'd3-scale';
 
 const MIN_MARGIN = { top: 5, right: 15, bottom: 30, left: 15 };
-const SQRT3 = Math.sqrt(3);
-const ALT_X = Math.sqrt(3)/2;
+const ALT_X = Math.sqrt(3) / 2;
 const TRIANGLE_LENGTH = 16;
+const STROKE_WIDTH = 1;
 const MAX_N = 10000000;
 const RACES = ['white', 'asian', 'hisp', 'am', 'black', 'tr'];
 
@@ -33,7 +33,7 @@ export default class TriangleChart extends Component {
     );
     chart.height = chart.width * ALT_X;
 
-    chart.hexWidth = chart.width / TRIANGLE_LENGTH;
+    chart.hexWidth = chart.width / TRIANGLE_LENGTH - STROKE_WIDTH * 2;
     chart.hexHeight = chart.hexWidth * ALT_X;
 
     chart.triangleScale = scalePow()
@@ -74,7 +74,7 @@ export default class TriangleChart extends Component {
       let lx = cx - baseWidth / 2;
       let rx = cx + baseWidth / 2;
       if (fill) { ctx.fillStyle = fill; }
-      if (stroke) { ctx.strokeStyle = stroke; }
+      if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = STROKE_WIDTH; }
 
       ctx.beginPath();
       ctx.moveTo(lx, basey);
@@ -97,7 +97,7 @@ export default class TriangleChart extends Component {
       });
 
       triangles.forEach(function (t) {
-        drawTriangle(t.x, t.y, t.upsideDown, chart.hexWidth / 2, false, 'black');
+        drawTriangle(t.x, t.y, t.upsideDown, chart.hexWidth / 2, '#e9e9e9', 'white');
       });
 
       triangles.forEach(function (t) {
