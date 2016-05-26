@@ -4,8 +4,8 @@ import './assets/styles/app.scss';
 import { json as d3_json } from 'd3-request';
 import { select, event } from 'd3-selection';
 
-import { requireAll } from './utils.js';
-import { TRANSITION_DURATION, SNAP_DURATION, END_YEAR, START_YEAR } from './config.js';
+import { requireAll } from './utils';
+import { TRANSITION_DURATION, SNAP_DURATION, END_YEAR, START_YEAR } from './config';
 
 const Controls = requireAll(require.context('./controls/', false, /^\.\/.*\.js$/));
 const Sections = requireAll(require.context('./sections/', false, /^\.\/.*\.js$/));
@@ -213,9 +213,12 @@ const app = {
       let regionP = params.find((p) => p[0] === 'region');
       let regionId = regionP ? regionP[1] : 'all';
       app.globals.region = regions.find((d) => d.id === regionId);
+    } else {
+      app.globals.region = regions[0];
     }
 
     app.setSection(sectionIdx);
+    app.loadData();
   },
 
   getHash: function () {

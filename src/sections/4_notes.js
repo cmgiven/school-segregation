@@ -1,6 +1,6 @@
-import { Section } from '../utils.js';
+import { Section } from '../utils';
 
-export default class extends Section {
+export default class Notes extends Section {
   constructor(options) {
     super(options);
     this.id = 'notes';

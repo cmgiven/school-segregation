@@ -1,8 +1,8 @@
-import { Section } from '../utils.js';
+import { Section } from '../utils';
 
 const template = require('!html!./1_introduction.html');
 
-export default class extends Section {
+export default class Introduction extends Section {
   constructor(options) {
     super(options);
     this.id = 'introduction';

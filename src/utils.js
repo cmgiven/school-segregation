@@ -29,17 +29,9 @@ export function diff(props, id) {
   cachedProps[id] = props;
 
   function ifDiff(keys, callback) {
-    let changed = false;
-    let obj = {};
-
     keys = typeof keys === 'string' ? [keys] : keys;
 
-    keys.forEach(function (key) {
-      obj[key] = props[key];
-      if (props[key] !== oldProps[key]) { changed = true; }
-    });
-
-    if (changed) { callback(obj); }
+    if (keys.findIndex((key) => props[key] !== oldProps[key]) !== -1) { callback(props); }
 
     return this;
   }

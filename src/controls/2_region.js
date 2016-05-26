@@ -1,14 +1,14 @@
-import { Component } from '../utils.js';
+import { Component } from '../utils';
 
-export default class extends Component {
+export default class RegionControl extends Component {
   constructor(options) {
     super(options);
     this.el.classed('region-control control', true);
 
-    let button = this.el.append('button')
+    this.button = this.el.append('button')
       .attr('class', 'selected-region');
 
-    let panel = this.el.append('div')
+    this.panel = this.el.append('div')
       .attr('class', 'region-panel');
   }
 }

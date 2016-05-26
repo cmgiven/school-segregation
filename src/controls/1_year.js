@@ -1,11 +1,11 @@
-import { Component, diff } from '../utils.js';
+import { Component, diff } from '../utils';
 
 import { event } from 'd3-selection';
 
-import { START_YEAR, END_YEAR } from '../config.js';
+import { START_YEAR, END_YEAR } from '../config';
 const SLIDER_WIDTH = 28;
 
-export default class extends Component {
+export default class YearControl extends Component {
   constructor(options) {
     super(options);
     this.id = 'year-control';
