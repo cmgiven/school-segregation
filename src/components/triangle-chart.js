@@ -43,11 +43,26 @@ export default class TriangleChart extends Component {
 
     let xScale = scaleLinear().domain([1,16]).range([chart.hexWidth / 2, chart.width - chart.hexWidth]);
     let yScale = scaleLinear().domain([1,16]).range([chart.height - chart.hexHeight, chart.hexHeight / 2]);
-    chart.getHexCenter = function (dx, dy) {
-      let x = xScale(dx + (dy - 1) / 2);
-      let y = yScale(dy);
-      return [x, y];
-    };
+    function getHexCenter(x, y) {
+      let hx = xScale(x + (y - 1) / 2);
+      let hy = yScale(y);
+      return [hx, hy];
+    }
+
+    chart.hexes = [];
+
+    for (let y = 1; y <= TRIANGLE_LENGTH; y++) {
+      for (let x = 1; x <= TRIANGLE_LENGTH + 1 - y; x++) {
+        let [ hx, hy ] = getHexCenter(x, y);
+        let triangles = RACES.map(function (race, i) {
+          let cx = hx + (i % 3 === 0 ? 0 : chart.hexWidth / 4 * (i < 3 ? 1 : -1));
+          let cy = hy + chart.hexHeight / (i % 3 === 0 ? 3 : 6) * (i > 1 && i < 5 ? 1 : -1);
+          let upsideDown = i % 2 === 0;
+          return { race, cx, cy, upsideDown };
+        });
+        chart.hexes.push({ x, y, hx, hy, triangles });
+      }
+    }
 
     let margin = {
       top: (containerHeight - chart.height - MIN_MARGIN.top - MIN_MARGIN.bottom) / 2 + MIN_MARGIN.top,
@@ -86,30 +101,27 @@ export default class TriangleChart extends Component {
       if (stroke) { ctx.stroke(); }
     }
 
-    function drawHex(hex) {
-      let [cx, cy] = chart.getHexCenter(hex.x, hex.y);
-
-      let triangles = RACES.map(function (race, i) {
-        let x = cx + (i % 3 === 0 ? 0 : chart.hexWidth / 4 * (i < 3 ? 1 : -1));
-        let y = cy + chart.hexHeight / (i % 3 === 0 ? 3 : 6) * (i > 1 && i < 5 ? 1 : -1);
-        let upsideDown = i % 2 === 0;
-        return { race, x, y, upsideDown };
-      });
-
-      triangles.forEach(function (t) {
-        drawTriangle(t.x, t.y, t.upsideDown, chart.hexWidth / 2, '#e9e9e9', 'white');
-      });
-
-      triangles.forEach(function (t) {
-        drawTriangle(t.x, t.y, t.upsideDown, chart.triangleScale(hex[t.race]), 'red');
-      });
-    }
-
     function draw(p) {
       chart.clearCanvas(ctx);
       if (!p.data) { return; }
       let data = p.data[p.roundYear].triangle;
-      data.forEach(drawHex);
+
+      chart.hexes.forEach(function (hex) {
+        hex.triangles.forEach(function (t) {
+          drawTriangle(t.cx, t.cy, t.upsideDown, chart.hexWidth / 2, '#e9e9e9', 'white');
+        });
+      });
+
+      data.forEach(function (d, i) {
+        let hex = chart.hexes[i];
+        if (hex.x !== d.x || hex.y !== d.y) {
+          hex = chart.hexes.find((h) => h.x === d.x && h.y === d.y);
+          if (!hex) { return; }
+        }
+        hex.triangles.forEach(function (t) {
+          drawTriangle(t.cx, t.cy, t.upsideDown, chart.triangleScale(d[t.race]), 'red');
+        });
+      });
     }
 
     if (forceUpdate) {
