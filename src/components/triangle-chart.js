@@ -41,8 +41,8 @@ export default class TriangleChart extends Component {
       .domain([0,MAX_N])
       .range([0, chart.hexWidth]);
 
-    let xScale = scaleLinear().domain([1,16]).range([chart.hexWidth / 2, chart.width - chart.hexWidth]);
-    let yScale = scaleLinear().domain([1,16]).range([chart.height - chart.hexHeight, chart.hexHeight / 2]);
+    let xScale = scaleLinear().domain([1,TRIANGLE_LENGTH]).range([chart.hexWidth / 2, chart.width - chart.hexWidth]);
+    let yScale = scaleLinear().domain([1,TRIANGLE_LENGTH]).range([chart.height - chart.hexHeight, chart.hexHeight / 2]);
     function getHexCenter(x, y) {
       let hx = xScale(x + (y - 1) / 2);
       let hy = yScale(y);
