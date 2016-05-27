@@ -31,6 +31,7 @@ export default class YearControl extends Component {
         let width = event.target.offsetWidth - SLIDER_WIDTH;
         let center = event.offsetX - SLIDER_WIDTH / 2;
         let year = START_YEAR + (END_YEAR - START_YEAR) * (center / width);
+        year = Math.min(END_YEAR, Math.max(START_YEAR, year));
 
         control.owner.setYear(year);
         control.rangeSliderActive = true;

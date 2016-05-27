@@ -8,6 +8,32 @@ const TRIANGLE_LENGTH = 10;
 const STROKE_WIDTH = 1;
 const MAX_N = 15000000;
 const RACES = ['white', 'asian', 'hisp', 'am', 'black', 'tr'];
+const COLORS = {
+  'white': '#7493C7',
+  'asian': '#ACC45D',
+  'hisp': '#81528B',
+  'am': '#B84D71',
+  'black': '#71AD91',
+  'tr': '#BC703B'
+};
+
+function drawTriangle(ctx, cx, cy, upsideDown, baseWidth, fill, stroke) {
+  let basey = cy + (baseWidth * ALT_X / 3) * (upsideDown ? -1 : 1);
+  let topy = cy + (baseWidth * ALT_X / 3 * 2) * (upsideDown ? 1 : -1);
+  let lx = cx - baseWidth / 2;
+  let rx = cx + baseWidth / 2;
+  if (fill) { ctx.fillStyle = fill; }
+  if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = STROKE_WIDTH; }
+
+  ctx.beginPath();
+  ctx.moveTo(lx, basey);
+  ctx.lineTo(rx, basey);
+  ctx.lineTo(cx, topy);
+  ctx.lineTo(lx, basey);
+
+  if (fill) { ctx.fill(); }
+  if (stroke) { ctx.stroke(); }
+}
 
 export default class TriangleChart extends Component {
   constructor(options) {
@@ -33,7 +59,7 @@ export default class TriangleChart extends Component {
     );
     chart.height = chart.width * ALT_X;
 
-    chart.hexWidth = chart.width / TRIANGLE_LENGTH - STROKE_WIDTH * 4;
+    chart.hexWidth = chart.width / TRIANGLE_LENGTH * 0.95;
     chart.hexHeight = chart.hexWidth * ALT_X;
 
     chart.triangleScale = scalePow()
@@ -83,43 +109,38 @@ export default class TriangleChart extends Component {
     var chart = this;
     var ctx = chart.context;
 
-    function drawTriangle(cx, cy, upsideDown, baseWidth, fill, stroke) {
-      let basey = cy + (baseWidth * ALT_X / 3) * (upsideDown ? -1 : 1);
-      let topy = cy + (baseWidth * ALT_X / 3 * 2) * (upsideDown ? 1 : -1);
-      let lx = cx - baseWidth / 2;
-      let rx = cx + baseWidth / 2;
-      if (fill) { ctx.fillStyle = fill; }
-      if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = STROKE_WIDTH; }
-
-      ctx.beginPath();
-      ctx.moveTo(lx, basey);
-      ctx.lineTo(rx, basey);
-      ctx.lineTo(cx, topy);
-      ctx.lineTo(lx, basey);
-
-      if (fill) { ctx.fill(); }
-      if (stroke) { ctx.stroke(); }
-    }
-
     function draw(p) {
       chart.clearCanvas(ctx);
       if (!p.data) { return; }
       let data = p.data[p.roundYear].triangle;
+      let data0 = p.data[Math.floor(p.year)].triangle;
+      let data1 = p.data[Math.ceil(p.year)].triangle;
+      let tween = p.year % 1;
+      let tweenData;
+
+      if (tween === 0) {
+        tweenData = data;
+      } else {
+        tweenData = data0.map(function (d0, i) {
+          let d1 = data1[i];
+          let result = {};
+          RACES.forEach(function (r) {
+            result[r] = d0[r] * (1 - tween) + d1[r] * tween;
+          });
+          return result;
+        });
+      }
 
       chart.hexes.forEach(function (hex) {
         hex.triangles.forEach(function (t) {
-          drawTriangle(t.cx, t.cy, t.upsideDown, chart.hexWidth / 2, '#e9e9e9', 'white');
+          drawTriangle(ctx, t.cx, t.cy, t.upsideDown, chart.hexWidth / 2, '#e9e9e9', 'white');
         });
       });
 
-      data.forEach(function (d, i) {
+      tweenData.forEach(function (d, i) {
         let hex = chart.hexes[i];
-        if (hex.x !== d.x || hex.y !== d.y) {
-          hex = chart.hexes.find((h) => h.x === d.x && h.y === d.y);
-          if (!hex) { return; }
-        }
         hex.triangles.forEach(function (t) {
-          drawTriangle(t.cx, t.cy, t.upsideDown, chart.triangleScale(d[t.race]), 'red');
+          drawTriangle(ctx, t.cx, t.cy, t.upsideDown, chart.triangleScale(d[t.race]), COLORS[t.race]);
         });
       });
     }
