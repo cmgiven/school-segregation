@@ -15,8 +15,8 @@ export default class TriangleSection extends Section {
       jumboHighlight: true
     };
 
-    this.components.push(new DemographicTooltip({ container: this.el, owner: this }));
     this.components.push(new TriangleChart({ container: this.el, owner: this }));
+    this.components.push(new DemographicTooltip({ container: this.el, owner: this }));
   }
 
   resize(props) {

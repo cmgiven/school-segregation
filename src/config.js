@@ -5,6 +5,14 @@ export const TRANSITION_DURATION = 167; // 10 frames
 export const SNAP_DURATION = 83; // 5 frames
 
 export const RACES = ['white', 'asian', 'hisp', 'am', 'black', 'tr'];
+export const RACE_LABELS = {
+  'white': 'white',
+  'hisp': 'Hispanic',
+  'black': 'black',
+  'asian': 'asian',
+  'am': 'American indian',
+  'tr': 'multiracial'
+};
 export const COLORS = {
   'white': '#7493C7',
   'asian': '#ACC45D',

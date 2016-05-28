@@ -196,3 +196,68 @@ p {
     height: 100%;
   }
 }
+
+#triangle {
+  #demographic-tooltip {
+    position: absolute;
+    top: 0; left: 0;
+    width: 33.3%;
+    padding: 0 1em;
+
+    .enrollment-bar {
+      position: relative;
+
+      span.label {
+        width: 100px;
+        display: inline-block;
+      }
+
+      span.bar-wrapper {
+        position: absolute;
+        display: block;
+        left: 100px;
+        top: 0;
+        right: 0px;
+        white-space: nowrap;
+      }
+
+      span.bar {
+        display: inline-block;
+        height: .65em;
+      }
+
+      span.value-label {
+        margin-left: 3px;
+      }
+    }
+
+    span.label {
+      text-transform: uppercase;
+      font-size: .65em;
+    }
+
+    span.value-label {
+      font-weight: 700;
+      font-size: .8em;
+    }
+  }
+}
+
+.white .bar {
+  background: #7493C7;
+}
+.asian .bar {
+  background: #ACC45D;
+}
+.hisp .bar {
+  background: #81528B;
+}
+.am .bar {
+  background: #B84D71;
+}
+.black .bar {
+  background: #71AD91;
+}
+.tr .bar {
+  background: #BC703B;
+}

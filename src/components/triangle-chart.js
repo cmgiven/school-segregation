@@ -195,16 +195,17 @@ export default class TriangleChart extends Component {
         let bigFontSize = chart.hexHeight * TRIANGLE_LENGTH / 5;
         let smallFontSize = bigFontSize / 9.4;
         ctx.font = bigFontSize + 'px "Lato", "Helvetica Neue", sans-serif';
+        ctx.textAlign = 'center';
         ctx.fillStyle = '#000';
         ctx.globalAlpha = 0.4;
 
-        let positions = [[0.48, 0.284], [0.211, 0.803], [0.749, 0.803], [0.48, 0.58]];
+        let positions = [[0.481, 0.284], [0.22, 0.803], [0.742, 0.803], [0.481, 0.58]];
 
         ['white', 'black', 'hisp', 'mix'].forEach(function(group, i) {
           let students = roundData.filter((d) => majGroup(d) === group)
             .reduce((sum, d) => sum + d.students, 0);
           let text = (students / totals.students * 100).toFixed(0) + '%';
-          let x = positions[i][0] * chart.width - ctx.measureText(text).width / 2;
+          let x = positions[i][0] * chart.width;
           let y = positions[i][1] * chart.height + bigFontSize * .33;
           ctx.fillText(text, x, y);
         });
@@ -212,7 +213,7 @@ export default class TriangleChart extends Component {
         ctx.globalAlpha = 0.6;
         ['majority white', 'majority black', 'majority Hispanic', 'balanced/other'].forEach(function(label, i) {
           let text = 'enrolled in schools with ' + label + ' enrollment';
-          let x = positions[i][0] * chart.width - ctx.measureText(text).width / 2;
+          let x = positions[i][0] * chart.width;
           let y = positions[i][1] * chart.height + bigFontSize * 0.45;
           ctx.fillText(text, x, y);
         });
@@ -220,13 +221,14 @@ export default class TriangleChart extends Component {
       } else {
         let fontSize = chart.hexHeight / 2;
         ctx.font = fontSize + 'px "Lato", "Helvetica Neue", sans-serif';
+        ctx.textAlign = 'center';
         ctx.fillStyle = '#000';
         ctx.globalAlpha = 0.4;
 
         roundData.forEach(function (d, i) {
           let hex = chart.hexes[i];
           let text = (d.students / totals.students * 100).toFixed(0) + '%';
-          let x = hex.hx - ctx.measureText(text).width / 2;
+          let x = hex.hx;
           let y = hex.hy + fontSize * .33;
           ctx.fillText(text, x, y);
         });

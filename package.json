@@ -46,6 +46,7 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
+    "d3-format": "^0.5.1",
     "d3-request": "^0.4.7",
     "d3-scale": "^0.7.2",
     "d3-selection": "^0.7.2"
