@@ -5,7 +5,7 @@ import { json as d3_json } from 'd3-request';
 import { select, event } from 'd3-selection';
 
 import { requireAll } from './utils';
-import { TRANSITION_DURATION, SNAP_DURATION, END_YEAR, START_YEAR } from './config';
+import { TRANSITION_DURATION, SNAP_DURATION, END_YEAR, START_YEAR, RACES } from './config';
 
 const Controls = requireAll(require.context('./controls/', false, /^\.\/.*\.js$/));
 const Sections = requireAll(require.context('./sections/', false, /^\.\/.*\.js$/));
@@ -82,6 +82,13 @@ const app = {
   loadData: function () {
     let path = dataPathForId(app.globals.region.id);
     d3_json(path, function (data) {
+      function sumStudents(row) {
+        row.students = RACES.reduce((sum, r) => row[r] ? sum + row[r] : sum, 0);
+      }
+      for (let year in data) {
+        sumStudents(data[year].summary);
+        data[year].triangle.forEach(sumStudents);
+      }
       app.enqueueTransitions([{ key: 'data', value: data }]);
     });
   },

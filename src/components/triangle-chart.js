@@ -1,30 +1,14 @@
-import { Component, diff } from '../utils.js';
+import { Component, diff } from '../utils';
 
 import { event } from 'd3-selection';
 import { scaleLinear, scalePow } from 'd3-scale';
 
+import { RACES, COLORS } from '../config';
 const MIN_MARGIN = { top: 5, right: 15, bottom: 30, left: 15 };
 const ALT_X = Math.sqrt(3) / 2;
 const TRIANGLE_LENGTH = 13;
 const STROKE_WIDTH = 1;
 const MAX_N = 10279040;
-const RACES = ['white', 'asian', 'hisp', 'am', 'black', 'tr'];
-const COLORS = {
-  'white': '#7493C7',
-  'asian': '#ACC45D',
-  'hisp': '#81528B',
-  'am': '#B84D71',
-  'black': '#71AD91',
-  'tr': '#BC703B',
-  'maj_white': '#DEE3EC',
-  'maj_black': '#DDE8E3',
-  'maj_hisp': '#E2DBE4',
-  'maj_mix': '#E9E9E9',
-  'maj_white_highlighted': '#D0D7E3',
-  'maj_black_highlighted': '#CFDED7',
-  'maj_hisp_highlighted': '#D8CFDA',
-  'maj_mix_highlighted': '#DFDFDF'
-};
 
 function drawTriangle(ctx, cx, cy, upsideDown, baseWidth, fill, stroke) {
   let basey = cy + (baseWidth * ALT_X / 3) * (upsideDown ? -1 : 1);

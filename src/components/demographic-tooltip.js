@@ -1,4 +1,4 @@
-import { Component, diff } from '../utils.js';
+import { Component, diff } from '../utils';
 
 export default class DemographicTooltip extends Component {
   constructor(options) {
@@ -12,9 +12,10 @@ export default class DemographicTooltip extends Component {
       .ifDiff(['roundYear', 'highlight', 'region', 'data'], function (p) {
         if (!p.data) { return; }
         let data;
+        let totals = p.data[p.roundYear].summary;
 
         if (!p.highlight) {
-          data = p.data[p.roundYear].summary;
+          data = totals;
         } else {
           data = p.data[p.roundYear].triangle
             .filter((hex) => p.highlight.find((target) => hex.x === target.x && hex.y === target.y))
@@ -30,7 +31,9 @@ export default class DemographicTooltip extends Component {
             }, {});
         }
 
-        tooltip.el.text('Number of schools: ' + data.schools);
+        tooltip.el.selectAll('p').remove();
+        tooltip.el.append('p').text(`Number of schools: ${data.schools} (${(data.schools / totals.schools * 100).toFixed(0)}%)`);
+        tooltip.el.append('p').text(`Number of students: ${data.students} (${(data.students / totals.students * 100).toFixed(0)}%)`);
       });
   }
 }
