@@ -1,5 +1,6 @@
 import { Component, diff } from '../utils.js';
 
+import { event } from 'd3-selection';
 import { scaleLinear, scalePow } from 'd3-scale';
 
 const MIN_MARGIN = { top: 5, right: 15, bottom: 30, left: 15 };
@@ -17,7 +18,8 @@ const COLORS = {
   'tr': '#BC703B',
   'maj_white': '#DEE3EC',
   'maj_black': '#DDE8E3',
-  'maj_hisp': '#E2DBE4'
+  'maj_hisp': '#E2DBE4',
+  'maj_mix': '#E9E9E9'
 };
 
 function drawTriangle(ctx, cx, cy, upsideDown, baseWidth, fill, stroke) {
@@ -38,13 +40,53 @@ function drawTriangle(ctx, cx, cy, upsideDown, baseWidth, fill, stroke) {
   if (stroke) { ctx.stroke(); }
 }
 
+function majGroup(hex) {
+  let breakpoint = TRIANGLE_LENGTH / 2 + 1;
+  return (hex.y > breakpoint) ? 'white' :
+    (hex.x + hex.y < breakpoint) ? 'black' :
+    (hex.x > breakpoint) ? 'hisp' :
+    'mix';
+}
+
 export default class TriangleChart extends Component {
   constructor(options) {
     super(options);
     this.id = 'triangle-chart';
+    let chart = this;
+
+    function getTarget(offsetX, offsetY) {
+      offsetX -= chart.margin.left;
+      offsetY -= chart.margin.top;
+
+      let y = TRIANGLE_LENGTH - Math.floor(offsetY / chart.hexHeight);
+      let x = Math.floor(offsetX / chart.hexWidth - (y - 1) / 2) + 1;
+      if (x <= 0 || y <= 0 || x + y > TRIANGLE_LENGTH + 1) { return null; }
+
+      if (chart.jumboHighlight) {
+        let group = majGroup({ x, y });
+        return chart.hexes.filter((hex) => majGroup(hex) === group);
+      }
+
+      return chart.hexes.find((hex) => hex.x === x && hex.y === y);
+    }
+
+    function mousemove() {
+      chart.owner.highlight(getTarget(event.offsetX, event.offsetY));
+    }
+
+    function mouseout() {
+      chart.owner.highlight(null);
+    }
+
+    function click() {
+      chart.owner.highlight(getTarget(event.offsetX, event.offsetY), true);
+    }
 
     this.el.style('width', '100%').style('height', '100%');
-    this.canvas = this.el.append('canvas');
+    this.canvas = this.el.append('canvas')
+      .on('mousemove', mousemove)
+      .on('mouseout', mouseout)
+      .on('click', click);
   }
 
   resize(props) {
@@ -93,16 +135,16 @@ export default class TriangleChart extends Component {
       }
     }
 
-    let margin = {
+    chart.margin = {
       top: (containerHeight - chart.height - MIN_MARGIN.top - MIN_MARGIN.bottom) / 2 + MIN_MARGIN.top,
       left: (containerWidth - chart.width - MIN_MARGIN.left - MIN_MARGIN.right) / 2 + MIN_MARGIN.left
     };
 
     chart.context = chart.canvas.node().getContext('2d');
-    chart.context.translate(margin.left, margin.top);
+    chart.context.translate(chart.margin.left, chart.margin.top);
 
     chart.clearCanvas = function (ctx) {
-        ctx.clearRect(0 - margin.left, 0 - margin.top, containerWidth, containerHeight);
+        ctx.clearRect(0 - chart.margin.left, 0 - chart.margin.top, containerWidth, containerHeight);
     };
 
     chart.update(props, true);
@@ -134,13 +176,12 @@ export default class TriangleChart extends Component {
       }
 
       chart.hexes.forEach(function (hex) {
-        let breakpoint = TRIANGLE_LENGTH / 2 + 1;
-        let color = (hex.y > breakpoint) ? COLORS.maj_white :
-          (hex.x + hex.y < breakpoint) ? COLORS.maj_black :
-          (hex.x > breakpoint) ? COLORS.maj_hisp :
-          '#e9e9e9';
+        let color = COLORS['maj_' + majGroup(hex)];
+        let stroke = p.highlight &&
+          p.highlight.findIndex((target) => target.x === hex.x && target.y === hex.y) !== -1 ?
+          'red' : 'white';
         hex.triangles.forEach(function (t) {
-          drawTriangle(ctx, t.cx, t.cy, t.upsideDown, chart.hexWidth / 2, color, 'white');
+          drawTriangle(ctx, t.cx, t.cy, t.upsideDown, chart.hexWidth / 2, color, stroke);
         });
       });
 
@@ -157,7 +198,10 @@ export default class TriangleChart extends Component {
       draw(props);
     } else {
       diff(props, this.id)
-        .ifDiff(['year', 'roundYear', 'region', 'data'], draw);
+        .ifDiff(['year', 'roundYear', 'highlight', 'region', 'data'], draw)
+        .ifDiff(['jumboHighlight'], function (p) {
+          chart.jumboHighlight = p.jumboHighlight;
+        });
     }
   }
 }
