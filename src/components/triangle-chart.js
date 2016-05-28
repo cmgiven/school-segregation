@@ -4,9 +4,9 @@ import { scaleLinear, scalePow } from 'd3-scale';
 
 const MIN_MARGIN = { top: 5, right: 15, bottom: 30, left: 15 };
 const ALT_X = Math.sqrt(3) / 2;
-const TRIANGLE_LENGTH = 10;
+const TRIANGLE_LENGTH = 13;
 const STROKE_WIDTH = 1;
-const MAX_N = 15000000;
+const MAX_N = 10279040;
 const RACES = ['white', 'asian', 'hisp', 'am', 'black', 'tr'];
 const COLORS = {
   'white': '#7493C7',
@@ -14,7 +14,10 @@ const COLORS = {
   'hisp': '#81528B',
   'am': '#B84D71',
   'black': '#71AD91',
-  'tr': '#BC703B'
+  'tr': '#BC703B',
+  'maj_white': '#DEE3EC',
+  'maj_black': '#DDE8E3',
+  'maj_hisp': '#E2DBE4'
 };
 
 function drawTriangle(ctx, cx, cy, upsideDown, baseWidth, fill, stroke) {
@@ -112,16 +115,15 @@ export default class TriangleChart extends Component {
     function draw(p) {
       chart.clearCanvas(ctx);
       if (!p.data) { return; }
-      let data = p.data[p.roundYear].triangle;
-      let data0 = p.data[Math.floor(p.year)].triangle;
-      let data1 = p.data[Math.ceil(p.year)].triangle;
       let tween = p.year % 1;
-      let tweenData;
+      let data;
 
       if (tween === 0) {
-        tweenData = data;
+        data = p.data[p.roundYear].triangle;
       } else {
-        tweenData = data0.map(function (d0, i) {
+        let data0 = p.data[Math.floor(p.year)].triangle;
+        let data1 = p.data[Math.ceil(p.year)].triangle;
+        data = data0.map(function (d0, i) {
           let d1 = data1[i];
           let result = {};
           RACES.forEach(function (r) {
@@ -132,13 +134,19 @@ export default class TriangleChart extends Component {
       }
 
       chart.hexes.forEach(function (hex) {
+        let breakpoint = TRIANGLE_LENGTH / 2 + 1;
+        let color = (hex.y > breakpoint) ? COLORS.maj_white :
+          (hex.x + hex.y < breakpoint) ? COLORS.maj_black :
+          (hex.x > breakpoint) ? COLORS.maj_hisp :
+          '#e9e9e9';
         hex.triangles.forEach(function (t) {
-          drawTriangle(ctx, t.cx, t.cy, t.upsideDown, chart.hexWidth / 2, '#e9e9e9', 'white');
+          drawTriangle(ctx, t.cx, t.cy, t.upsideDown, chart.hexWidth / 2, color, 'white');
         });
       });
 
-      tweenData.forEach(function (d, i) {
+      data.forEach(function (d, i) {
         let hex = chart.hexes[i];
+        hex.triangles.sort((a, b) => d[b.race] - d[a.race]);
         hex.triangles.forEach(function (t) {
           drawTriangle(ctx, t.cx, t.cy, t.upsideDown, chart.triangleScale(d[t.race]), COLORS[t.race]);
         });
