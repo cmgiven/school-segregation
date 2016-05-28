@@ -67,7 +67,7 @@ export default class TriangleChart extends Component {
         return chart.hexes.filter((hex) => majGroup(hex) === group);
       }
 
-      return chart.hexes.find((hex) => hex.x === x && hex.y === y);
+      return [chart.hexes.find((hex) => hex.x === x && hex.y === y)];
     }
 
     function mousemove() {
@@ -179,7 +179,7 @@ export default class TriangleChart extends Component {
         let color = COLORS['maj_' + majGroup(hex)];
         let stroke = p.highlight &&
           p.highlight.findIndex((target) => target.x === hex.x && target.y === hex.y) !== -1 ?
-          'red' : 'white';
+          '#888' : 'white';
         hex.triangles.forEach(function (t) {
           drawTriangle(ctx, t.cx, t.cy, t.upsideDown, chart.hexWidth / 2, color, stroke);
         });
