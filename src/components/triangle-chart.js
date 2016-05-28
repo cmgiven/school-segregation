@@ -146,10 +146,12 @@ export default class TriangleChart extends Component {
       chart.clearCanvas(ctx);
       if (!p.data) { return; }
       let tween = p.year % 1;
+      let roundData = p.data[p.roundYear].triangle;
+      let totals = p.data[p.roundYear].summary;
       let data;
 
       if (tween === 0) {
-        data = p.data[p.roundYear].triangle;
+        data = roundData;
       } else {
         let data0 = p.data[Math.floor(p.year)].triangle;
         let data1 = p.data[Math.ceil(p.year)].triangle;
@@ -179,13 +181,55 @@ export default class TriangleChart extends Component {
           drawTriangle(ctx, t.cx, t.cy, t.upsideDown, chart.triangleScale(d[t.race]), COLORS[t.race]);
         });
       });
+
+      if (p.jumboHighlight) {
+        let bigFontSize = chart.hexHeight * TRIANGLE_LENGTH / 5;
+        let smallFontSize = bigFontSize / 9.4;
+        ctx.font = bigFontSize + 'px "Lato", "Helvetica Neue", sans-serif';
+        ctx.fillStyle = '#000';
+        ctx.globalAlpha = 0.4;
+
+        let positions = [[0.48, 0.284], [0.211, 0.803], [0.749, 0.803], [0.48, 0.58]];
+
+        ['white', 'black', 'hisp', 'mix'].forEach(function(group, i) {
+          let students = roundData.filter((d) => majGroup(d) === group)
+            .reduce((sum, d) => sum + d.students, 0);
+          let text = (students / totals.students * 100).toFixed(0) + '%';
+          let x = positions[i][0] * chart.width - ctx.measureText(text).width / 2;
+          let y = positions[i][1] * chart.height + bigFontSize * .33;
+          ctx.fillText(text, x, y);
+        });
+        ctx.font = smallFontSize + 'px "Lato", "Helvetica Neue", sans-serif';
+        ctx.globalAlpha = 0.6;
+        ['majority white', 'majority black', 'majority Hispanic', 'balanced/other'].forEach(function(label, i) {
+          let text = 'enrolled in schools with ' + label + ' enrollment';
+          let x = positions[i][0] * chart.width - ctx.measureText(text).width / 2;
+          let y = positions[i][1] * chart.height + bigFontSize * 0.45;
+          ctx.fillText(text, x, y);
+        });
+        ctx.globalAlpha = 1;
+      } else {
+        let fontSize = chart.hexHeight / 2;
+        ctx.font = fontSize + 'px "Lato", "Helvetica Neue", sans-serif';
+        ctx.fillStyle = '#000';
+        ctx.globalAlpha = 0.4;
+
+        roundData.forEach(function (d, i) {
+          let hex = chart.hexes[i];
+          let text = (d.students / totals.students * 100).toFixed(0) + '%';
+          let x = hex.hx - ctx.measureText(text).width / 2;
+          let y = hex.hy + fontSize * .33;
+          ctx.fillText(text, x, y);
+        });
+        ctx.globalAlpha = 1;
+      }
     }
 
     if (forceUpdate) {
       draw(props);
     } else {
       diff(props, this.id)
-        .ifDiff(['year', 'roundYear', 'highlight', 'region', 'data'], draw)
+        .ifDiff(['year', 'roundYear', 'highlight', 'jumboHighlight', 'region', 'data'], draw)
         .ifDiff(['jumboHighlight'], function (p) {
           chart.jumboHighlight = p.jumboHighlight;
         });

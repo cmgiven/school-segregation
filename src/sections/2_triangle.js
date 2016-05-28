@@ -19,6 +19,11 @@ export default class TriangleSection extends Section {
     this.components.push(new TriangleChart({ container: this.el, owner: this }));
   }
 
+  resize(props) {
+    this.state = Object.assign({}, this.state, props);
+    super.resize(this.state);
+  }
+
   update(props) {
     this.state = Object.assign({}, this.state, props);
     super.update(this.state);
@@ -26,8 +31,12 @@ export default class TriangleSection extends Section {
 
   highlight(target, sticky) {
     if (!this.state.stickyHighlight || typeof sticky !== 'undefined') {
-      if (!sticky && target && this.state.highlight && target[0] === this.state.highlight[0]) {
-        return;
+      if (target && this.state.highlight && target[0] === this.state.highlight[0]) {
+        if (!sticky) {
+          return;
+        } else if (this.state.stickyHighlight) {
+          sticky = false;
+        }
       }
       this.update({
         highlight: target,
