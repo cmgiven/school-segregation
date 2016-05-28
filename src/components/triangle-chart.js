@@ -82,10 +82,6 @@ export default class TriangleChart extends Component {
     let containerWidth = chart.el.node().offsetWidth;
     let containerHeight = chart.el.node().offsetHeight;
 
-    chart.canvas
-      .attr('width', containerWidth)
-      .attr('height', containerHeight);
-
     chart.width = Math.min(
       containerWidth - MIN_MARGIN.left - MIN_MARGIN.right,
       (containerHeight - MIN_MARGIN.top - MIN_MARGIN.bottom) / ALT_X
@@ -129,6 +125,19 @@ export default class TriangleChart extends Component {
     };
 
     chart.context = chart.canvas.node().getContext('2d');
+
+    if (window.devicePixelRatio) {
+      chart.canvas
+        .attr('width', containerWidth * window.devicePixelRatio)
+        .attr('height', containerHeight * window.devicePixelRatio)
+        .attr('style', `width: ${containerWidth}px; height: ${containerHeight}px;`);
+      chart.context.scale(window.devicePixelRatio, window.devicePixelRatio);
+    } else {
+      chart.canvas
+        .attr('width', containerWidth)
+        .attr('height', containerHeight);
+    }
+
     chart.context.translate(chart.margin.left, chart.margin.top);
 
     chart.clearCanvas = function (ctx) {
