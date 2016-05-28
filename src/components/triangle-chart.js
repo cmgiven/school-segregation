@@ -19,7 +19,11 @@ const COLORS = {
   'maj_white': '#DEE3EC',
   'maj_black': '#DDE8E3',
   'maj_hisp': '#E2DBE4',
-  'maj_mix': '#E9E9E9'
+  'maj_mix': '#E9E9E9',
+  'maj_white_highlighted': '#D0D7E3',
+  'maj_black_highlighted': '#CFDED7',
+  'maj_hisp_highlighted': '#D8CFDA',
+  'maj_mix_highlighted': '#DFDFDF'
 };
 
 function drawTriangle(ctx, cx, cy, upsideDown, baseWidth, fill, stroke) {
@@ -176,12 +180,11 @@ export default class TriangleChart extends Component {
       }
 
       chart.hexes.forEach(function (hex) {
-        let color = COLORS['maj_' + majGroup(hex)];
-        let stroke = p.highlight &&
-          p.highlight.findIndex((target) => target.x === hex.x && target.y === hex.y) !== -1 ?
-          '#888' : 'white';
+        let highlighted = p.highlight &&
+          p.highlight.findIndex((target) => target.x === hex.x && target.y === hex.y) !== -1;
+        let color = COLORS['maj_' + majGroup(hex) + (highlighted ? '_highlighted' : '')];
         hex.triangles.forEach(function (t) {
-          drawTriangle(ctx, t.cx, t.cy, t.upsideDown, chart.hexWidth / 2, color, stroke);
+          drawTriangle(ctx, t.cx, t.cy, t.upsideDown, chart.hexWidth / 2, color, '#ffffff');
         });
       });
 
