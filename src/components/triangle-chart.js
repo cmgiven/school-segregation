@@ -8,7 +8,6 @@ const MIN_MARGIN = { top: 20, right: 0, bottom: 35, left: 25 };
 const ALT_X = Math.sqrt(3) / 2;
 const TRIANGLE_LENGTH = 13;
 const STROKE_WIDTH = 1;
-const MAX_N = 10279040;
 
 function drawTriangle(ctx, cx, cy, upsideDown, baseWidth, fill, stroke) {
   let basey = cy + (baseWidth * ALT_X / 3) * (upsideDown ? -1 : 1);
@@ -41,6 +40,8 @@ export default class TriangleChart extends Component {
     super(options);
     this.id = 'triangle-chart';
     let chart = this;
+
+    chart.triangleScale = scalePow().exponent(0.5);
 
     function getTarget(offsetX, offsetY) {
       offsetX -= chart.margin.left;
@@ -95,10 +96,7 @@ export default class TriangleChart extends Component {
     chart.hexWidth = chart.width / TRIANGLE_LENGTH * 0.95;
     chart.hexHeight = chart.hexWidth * ALT_X;
 
-    chart.triangleScale = scalePow()
-      .exponent(0.5)
-      .domain([0,MAX_N])
-      .range([0, chart.hexWidth]);
+    chart.triangleScale.range([0, chart.hexWidth]);
 
     let xScale = scaleLinear().domain([1,TRIANGLE_LENGTH]).range([chart.hexWidth / 2, chart.width - chart.hexWidth]);
     let yScale = scaleLinear().domain([1,TRIANGLE_LENGTH]).range([chart.height - chart.hexHeight, chart.hexHeight / 2]);
@@ -251,11 +249,32 @@ export default class TriangleChart extends Component {
                        p.region.name + ', ' + p.roundYear + '&ndash;' + (p.roundYear + 1));
     }
 
+    function setScale(p) {
+      let max = 100;
+
+      function updateMax(data) {
+        data.forEach(function (d) {
+          RACES.forEach(function (r) {
+            if (d[r] > max) { max = d[r]; }
+          });
+        });
+      }
+      if (p.data) {
+        for (let year in p.data) {
+          let yearData = p.data[year].triangle;
+          updateMax(yearData);
+        }
+      }
+
+      chart.triangleScale.domain([0, max]);
+    }
+
     if (forceUpdate) {
       draw(props);
       setTitle(props);
     } else {
       diff(props, this.id)
+        .ifDiff(['data'], setScale)
         .ifDiff(['year', 'roundYear', 'highlight', 'jumboHighlight', 'region', 'data', 'tweenedTriangle'], draw)
         .ifDiff(['roundYear', 'region'], setTitle)
         .ifDiff(['jumboHighlight'], function (p) {
