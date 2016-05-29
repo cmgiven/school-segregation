@@ -4,7 +4,7 @@ import { event } from 'd3-selection';
 import { scaleLinear, scalePow } from 'd3-scale';
 
 import { RACES, COLORS } from '../config';
-const MIN_MARGIN = { top: 20, right: 0, bottom: 50, left: 25 };
+const MIN_MARGIN = { top: 20, right: 0, bottom: 35, left: 25 };
 const ALT_X = Math.sqrt(3) / 2;
 const TRIANGLE_LENGTH = 13;
 const STROKE_WIDTH = 1;
@@ -70,7 +70,7 @@ export default class TriangleChart extends Component {
       chart.owner.highlight(getTarget(event.offsetX, event.offsetY), true);
     }
 
-    this.el.style('width', '100%').style('height', '100%');
+    this.el.style('width', '100%');
     this.canvas = this.el.append('canvas')
       .on('mousemove', mousemove)
       .on('mouseout', mouseout)
@@ -83,7 +83,8 @@ export default class TriangleChart extends Component {
   resize() {
     let chart = this;
     let containerWidth = chart.el.node().offsetWidth;
-    let containerHeight = chart.el.node().offsetHeight;
+    let containerHeight = chart.el.style('height', '100%').node().offsetHeight;
+    chart.el.style('height', '');
 
     chart.width = Math.min(
       containerWidth - MIN_MARGIN.left - MIN_MARGIN.right,

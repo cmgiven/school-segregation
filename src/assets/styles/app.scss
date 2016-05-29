@@ -93,16 +93,19 @@ p {
 .year-control {
   position: absolute;
   top: 0; left: 0; right: $footer-height;
-  padding: 0 1em;
 
-   .slider {
+   .slider-wrapper {
+    position: absolute;
+    top: $footer-height / 2 - 19;
+    left: 132px; right: 32px;
+  }
+
+  .slider {
     -webkit-appearance:none !important;
     height: 3px;
+    width: 100%;
     background: $mingray;
     border-radius: 3px;
-    position: absolute;
-    top: $footer-height / 2 - 5;
-    left: 12em; right: 2em;
 
     &::-webkit-slider-thumb {
       -webkit-appearance:none !important;
@@ -120,13 +123,15 @@ p {
    }
 
   .label {
-    margin-left: 10px;
+    position: absolute;
+    left: 80px;
     line-height: $footer-height - 4;
   }
 
   .play-button {
-    position: relative;
-    top: -($footer-height - 44px) / 2 + 2;
+    position: absolute;
+    top: ($footer-height - 44px) / 2 - 2;
+    left: 16px;
     width: 44px;
     height: 44px;
     margin: 0 4px;
@@ -206,18 +211,22 @@ p {
   span.title {
     display: block;
     position: relative;
-    top: -39px;
+    top: -24px;
     font-weight: 700;
     font-size: .8em;
     text-align: center;
   }
 
   #demographic-tooltip {
-    position: absolute;
-    top: 12px; left: 0;
-    width: 40%;
+    width: 100%;
     padding: 0 1em;
     pointer-events: none;
+
+    @media screen and (min-width: 560px) {
+      position: absolute;
+      top: 12px; left: 0;
+      width: 40%;
+    }
 
     button {
       pointer-events: auto;

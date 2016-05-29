@@ -39,8 +39,6 @@ const app = {
     app.controls = Controls.map((C) => new C({ container: controlContainer, owner: app }));
     app.sections = Sections.map((S) => new S({ container: sectionContainer, owner: app }));
 
-    app.loadStateFromHash();
-
     select(window)
       .on('resize', app.resize)
       .on('hashchange', app.loadStateFromHash)
@@ -56,6 +54,8 @@ const app = {
 
         event.preventDefault();
       });
+
+    app.loadStateFromHash();
   },
 
   setSection: function (idx) {
@@ -254,4 +254,4 @@ const app = {
   }
 };
 
-app.initialize();
+window.addEventListener("load", app.initialize);

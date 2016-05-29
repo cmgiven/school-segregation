@@ -21,7 +21,8 @@ export default class YearControl extends Component {
     this.label = this.el.append('span')
       .attr('class', 'label');
 
-    this.slider = this.el.append('input')
+    this.slider = this.el.append('div').attr('class', 'slider-wrapper')
+      .append('input')
       .attr('class', 'slider')
       .attr('type', 'range')
       .attr('min', START_YEAR)
