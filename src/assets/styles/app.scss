@@ -200,9 +200,14 @@ p {
 #triangle {
   #demographic-tooltip {
     position: absolute;
-    top: 0; left: 0;
-    width: 33.3%;
+    top: 12px; left: 0;
+    width: 40%;
     padding: 0 1em;
+    pointer-events: none;
+
+    button {
+      pointer-events: auto;
+    }
 
     .enrollment-bar {
       position: relative;

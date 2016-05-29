@@ -4,7 +4,7 @@ import { event } from 'd3-selection';
 import { scaleLinear, scalePow } from 'd3-scale';
 
 import { RACES, COLORS } from '../config';
-const MIN_MARGIN = { top: 5, right: 15, bottom: 30, left: 15 };
+const MIN_MARGIN = { top: 20, right: 15, bottom: 30, left: 15 };
 const ALT_X = Math.sqrt(3) / 2;
 const TRIANGLE_LENGTH = 13;
 const STROKE_WIDTH = 1;
@@ -120,22 +120,22 @@ export default class TriangleChart extends Component {
     }
 
     chart.margin = {
-      top: (containerHeight - chart.height - MIN_MARGIN.top - MIN_MARGIN.bottom) / 2 + MIN_MARGIN.top,
-      left: (containerWidth - chart.width - MIN_MARGIN.left - MIN_MARGIN.right) / 2 + MIN_MARGIN.left
+      top: MIN_MARGIN.top,
+      left: MIN_MARGIN.left
     };
 
     chart.context = chart.canvas.node().getContext('2d');
 
     if (window.devicePixelRatio) {
       chart.canvas
-        .attr('width', containerWidth * window.devicePixelRatio)
-        .attr('height', containerHeight * window.devicePixelRatio)
-        .attr('style', `width: ${containerWidth}px; height: ${containerHeight}px;`);
+        .attr('width', (chart.width + MIN_MARGIN.left + MIN_MARGIN.right) * window.devicePixelRatio)
+        .attr('height', (chart.height + MIN_MARGIN.top + MIN_MARGIN.bottom) * window.devicePixelRatio)
+        .attr('style', `width: ${chart.width + MIN_MARGIN.left + MIN_MARGIN.right}px; height: ${chart.height + MIN_MARGIN.top + MIN_MARGIN.bottom}px;`);
       chart.context.scale(window.devicePixelRatio, window.devicePixelRatio);
     } else {
       chart.canvas
-        .attr('width', containerWidth)
-        .attr('height', containerHeight);
+        .attr('width', chart.width + MIN_MARGIN.left + MIN_MARGIN.right)
+        .attr('height', chart.height + MIN_MARGIN.top + MIN_MARGIN.bottom);
     }
 
     chart.context.translate(chart.margin.left, chart.margin.top);
@@ -215,6 +215,25 @@ export default class TriangleChart extends Component {
         });
         ctx.globalAlpha = 1;
       }
+
+      ctx.save();
+      ctx.font = '10px "Lato", "Helvetica Neue", sans-serif';
+      ctx.fillStyle = '#777';
+      ctx.textAlign = 'right';
+      ctx.fillText('< HIGHER BLACK ENROLLMENT', chart.width * 0.465, chart.height - chart.hexHeight / 3 + 10);
+      ctx.textAlign = 'left';
+      ctx.fillText('HIGHER HISPANIC ENROLLMENT >', chart.width * 0.5, chart.height - chart.hexHeight / 3 + 10);
+      ctx.rotate(2 * Math.PI / 6);
+      ctx.textAlign = 'right';
+      ctx.fillText('< HIGHER WHITE ENROLLMENT', chart.width * .695, -chart.height / 2 - 10);
+      ctx.textAlign = 'left';
+      ctx.fillText('HIGHER HISPANIC ENROLLMENT >', chart.width * .735, -chart.height / 2 - 10);
+      ctx.rotate(2 * Math.PI / -3);
+      ctx.textAlign = 'right';
+      ctx.fillText('< HIGHER BLACK ENROLLMENT', chart.width * -0.25, chart.height / 2 - chart.hexHeight / 2 - 10);
+      ctx.textAlign = 'left';
+      ctx.fillText('HIGHER WHITE ENROLLMENT >', chart.width * -0.215, chart.height / 2 - chart.hexHeight / 2 - 10);
+      ctx.restore();
     }
 
     if (forceUpdate) {
