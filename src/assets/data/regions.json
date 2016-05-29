@@ -325,35 +325,5 @@
    "abbr":"WY",
    "id":"56",
    "region":"West"
- },
- {
-   "name":"American Samoa",
-   "abbr":"AS",
-   "id":"60",
-   "region":"Unincorporated territories"
- },
- {
-   "name":"Guam",
-   "abbr":"GU",
-   "id":"66",
-   "region":"Unincorporated territories"
- },
- {
-   "name":"Northern Mariana Islands",
-   "abbr":"MP",
-   "id":"69",
-   "region":"Unincorporated territories"
- },
- {
-   "name":"Puerto Rico",
-   "abbr":"PR",
-   "id":"72",
-   "region":"Unincorporated territories"
- },
- {
-   "name":"Virgin Islands",
-   "abbr":"VI",
-   "id":"78",
-   "region":"Unincorporated territories"
  }
 ]
