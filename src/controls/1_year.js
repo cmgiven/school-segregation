@@ -50,7 +50,7 @@ export default class YearControl extends Component {
 
     diff(props, this.id)
       .ifDiff('roundYear', function (p) {
-        control.label.text(p.roundYear);
+        control.label.text(p.roundYear + 1);
       })
       .ifDiff('year', function (p) {
         if (!control.rangeSliderActive) { control.slider.node().value = props.year; }

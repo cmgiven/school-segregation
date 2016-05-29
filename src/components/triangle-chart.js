@@ -4,7 +4,7 @@ import { event } from 'd3-selection';
 import { scaleLinear, scalePow } from 'd3-scale';
 
 import { RACES, COLORS } from '../config';
-const MIN_MARGIN = { top: 20, right: 15, bottom: 30, left: 15 };
+const MIN_MARGIN = { top: 20, right: 0, bottom: 50, left: 25 };
 const ALT_X = Math.sqrt(3) / 2;
 const TRIANGLE_LENGTH = 13;
 const STROKE_WIDTH = 1;
@@ -75,6 +75,9 @@ export default class TriangleChart extends Component {
       .on('mousemove', mousemove)
       .on('mouseout', mouseout)
       .on('click', click);
+
+    this.title = this.el.append('span')
+      .attr('class', 'title');
   }
 
   resize() {
@@ -236,11 +239,18 @@ export default class TriangleChart extends Component {
       ctx.restore();
     }
 
+    function setTitle(p) {
+      chart.title.html('Distribution of Students by School Racial/Ethnic Composition<br/>' +
+                       p.region.name + ', ' + p.roundYear + '&ndash;' + (p.roundYear + 1));
+    }
+
     if (forceUpdate) {
       draw(props);
+      setTitle(props);
     } else {
       diff(props, this.id)
         .ifDiff(['year', 'roundYear', 'highlight', 'jumboHighlight', 'region', 'data', 'tweenedTriangle'], draw)
+        .ifDiff(['roundYear, region'], setTitle)
         .ifDiff(['jumboHighlight'], function (p) {
           chart.jumboHighlight = p.jumboHighlight;
         });
