@@ -6,8 +6,6 @@ export class Component {
     this.el = options.container.append('div');
     this.owner = options.owner;
   }
-
-  resize(props) { if (this.update) { this.update(props); } }
 }
 
 export class Section extends Component {
@@ -18,8 +16,8 @@ export class Section extends Component {
     this.components = [];
   }
 
-  resize(props) { this.components.forEach(function (c) { if (c.resize) { c.resize(props); } }); }
-  update(props) { this.components.forEach(function (c) { if (c.update) { c.update(props); } }); }
+  resize() { this.components.forEach(function (c) { if (c.resize) { c.resize(); } }); }
+  update(props, forceUpdate) { this.components.forEach(function (c) { if (c.update) { c.update(props, forceUpdate); } }); }
 }
 
 let cachedProps = {};

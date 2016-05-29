@@ -94,13 +94,14 @@ const app = {
   },
 
   resize: function () {
-    if (app.activeSection && app.activeSection.resize) { app.activeSection.resize(app.globals); }
-    app.controls.forEach(function (c) { if (c.resize) { c.resize(app.globals); } });
+    if (app.activeSection && app.activeSection.resize) { app.activeSection.resize(); }
+    app.controls.forEach(function (c) { if (c.resize) { c.resize(); } });
+    app.update(true);
   },
 
-  update: function () {
-    if (app.activeSection && app.activeSection.update) { app.activeSection.update(app.globals); }
-    app.controls.forEach(function (c) { if (c.update) { c.update(app.globals); } });
+  update: function (forceUpdate) {
+    if (app.activeSection && app.activeSection.update) { app.activeSection.update(app.globals, forceUpdate); }
+    app.controls.forEach(function (c) { if (c.update) { c.update(app.globals, forceUpdate); } });
   },
 
   animationFrame: function (time) {

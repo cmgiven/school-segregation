@@ -77,7 +77,7 @@ export default class TriangleChart extends Component {
       .on('click', click);
   }
 
-  resize(props) {
+  resize() {
     let chart = this;
     let containerWidth = chart.el.node().offsetWidth;
     let containerHeight = chart.el.node().offsetHeight;
@@ -143,8 +143,6 @@ export default class TriangleChart extends Component {
     chart.clearCanvas = function (ctx) {
         ctx.clearRect(0 - chart.margin.left, 0 - chart.margin.top, containerWidth, containerHeight);
     };
-
-    chart.update(props, true);
   }
 
   update(props, forceUpdate) {
@@ -154,25 +152,8 @@ export default class TriangleChart extends Component {
     function draw(p) {
       chart.clearCanvas(ctx);
       if (!p.data) { return; }
-      let tween = p.year % 1;
       let roundData = p.data[p.roundYear].triangle;
       let totals = p.data[p.roundYear].summary;
-      let data;
-
-      if (tween === 0) {
-        data = roundData;
-      } else {
-        let data0 = p.data[Math.floor(p.year)].triangle;
-        let data1 = p.data[Math.ceil(p.year)].triangle;
-        data = data0.map(function (d0, i) {
-          let d1 = data1[i];
-          let result = {};
-          RACES.forEach(function (r) {
-            result[r] = d0[r] * (1 - tween) + d1[r] * tween;
-          });
-          return result;
-        });
-      }
 
       chart.hexes.forEach(function (hex) {
         let highlighted = p.highlight &&
@@ -183,7 +164,7 @@ export default class TriangleChart extends Component {
         });
       });
 
-      data.forEach(function (d, i) {
+      p.tweenedTriangle.forEach(function (d, i) {
         let hex = chart.hexes[i];
         hex.triangles.sort((a, b) => d[b.race] - d[a.race]);
         hex.triangles.forEach(function (t) {
@@ -240,7 +221,7 @@ export default class TriangleChart extends Component {
       draw(props);
     } else {
       diff(props, this.id)
-        .ifDiff(['year', 'roundYear', 'highlight', 'jumboHighlight', 'region', 'data'], draw)
+        .ifDiff(['year', 'roundYear', 'highlight', 'jumboHighlight', 'region', 'data', 'tweenedTriangle'], draw)
         .ifDiff(['jumboHighlight'], function (p) {
           chart.jumboHighlight = p.jumboHighlight;
         });

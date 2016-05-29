@@ -45,15 +45,14 @@ export default class DemographicTooltip extends Component {
   update(props) {
     let tooltip = this;
     diff(props, this.id)
-      .ifDiff(['roundYear', 'highlight', 'region', 'data'], function (p) {
+      .ifDiff(['roundYear', 'highlight', 'region', 'data', 'tweenedTriangle', 'tweenedSummary'], function (p) {
         if (!p.data) { return; }
         let data;
-        let totals = p.data[p.roundYear].summary;
 
         if (!p.highlight) {
-          data = totals;
+          data = p.tweenedSummary;
         } else {
-          data = p.data[p.roundYear].triangle
+          data = p.tweenedTriangle
             .filter((hex) => p.highlight.find((target) => hex.x === target.x && hex.y === target.y))
             .reduce(function (sum, hex) {
               for (let k in hex) {
