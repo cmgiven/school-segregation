@@ -68,13 +68,13 @@ export default class DemographicTooltip extends Component {
 
         tooltip.enrollment.each(function (d) {
           let selection = select(this);
-          let percentage = percentFormatter(data[d] / data.students);
+          let percentage = percentFormatter(data[d] ? data[d] / data.students : 0);
 
           selection.select('.bar').style('width', percentage);
           selection.select('.value-label').text(percentage);
         });
 
-        tooltip.counts.select('.value-label').text((d) => commaFormatter(data[d]) + ' ');
+        tooltip.counts.select('.value-label').text((d) => commaFormatter(data[d] || 0) + ' ');
       });
   }
 }

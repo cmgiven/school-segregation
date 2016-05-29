@@ -296,8 +296,8 @@ for (.year in names(psu)) {
     for (.race in races) { .bins[, tolower(.race)] <- c(hexTapply(.hbin, subset[, .race], sum)) }
 
     # We transform the (x, y) coordinate into a simpler (cellFromLeft, rowFromBottom) coordinate
-    .bins$x <- apply(.bins, 1, function (row) match(row[['x']], unique(.bins[.bins$y == row[['y']], 'x'])))
-    .bins$y <- match(.bins$y, unique(.bins$y))
+    .bins$y <- round(.bins$y * sqrt(3) / 2 / 0.75) + 1
+    .bins$x <- apply(.bins, 1, function (row) round(row[['x']] - (row[['y']] - 1) / 2) + 1)
 
     # Build a histogram of students/schools by school racial/ethnic composition
     .hist <- data.frame('cut' = hist_breaks[-1])

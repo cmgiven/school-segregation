@@ -1,5 +1,4 @@
 import { Section, diff } from '../utils';
-import { RACES } from '../config';
 
 import TriangleChart from '../components/triangle-chart';
 import DemographicTooltip from '../components/demographic-tooltip';
@@ -33,14 +32,20 @@ export default class TriangleSection extends Section {
           } else {
             let data0 = p.data[Math.floor(p.year)].triangle;
             let data1 = p.data[Math.ceil(p.year)].triangle;
-            state.tweenedTriangle = data0.map(function (d0, i) {
-              let d1 = data1[i];
-              let result = {};
-              Object.keys(d1).forEach(function (k) {
-                result[k] = d0[k] * (1 - tween) + d1[k] * tween;
-              });
-              return result;
-            });
+
+            state.tweenedTriangle = [];
+            for (let y = 1; y <= 13; y++) {
+              for (let x = 1; x <= 13 + 1 - y; x++) {
+                let d0 = data0.find((d) => d.x === x && d.y === y);
+                let d1 = data1.find((d) => d.x === x && d.y === y);
+                let result = { x, y };
+                ['white','black','hisp','asian','am','tr','schools','students'].forEach(function (k) {
+                  result[k] = (d0 ? d0[k] || 0 : 0) * (1 - tween) + (d1 ? d1[k] || 0 : 0) * tween;
+                });
+                state.tweenedTriangle.push(result);
+              }
+            }
+
             let summaryData0 = p.data[Math.floor(p.year)].summary;
             let summaryData1 = p.data[Math.ceil(p.year)].summary;
             let tweenedSummary = {};

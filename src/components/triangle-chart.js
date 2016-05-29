@@ -170,6 +170,9 @@ export default class TriangleChart extends Component {
 
       p.tweenedTriangle.forEach(function (d, i) {
         let hex = chart.hexes[i];
+        if (hex.x !== d.x || hex.y !== d.y) {
+          hex = chart.hexes.find((h) => h.x === d.x && h.y === d.y);
+        }
         hex.triangles.sort((a, b) => d[b.race] - d[a.race]);
         hex.triangles.forEach(function (t) {
           drawTriangle(ctx, t.cx, t.cy, t.upsideDown, chart.triangleScale(d[t.race]), COLORS[t.race]);
@@ -212,6 +215,9 @@ export default class TriangleChart extends Component {
 
         roundData.forEach(function (d, i) {
           let hex = chart.hexes[i];
+          if (hex.x !== d.x || hex.y !== d.y) {
+            hex = chart.hexes.find((h) => h.x === d.x && h.y === d.y);
+          }
           let text = (d.students / totals.students * 100).toFixed(0) + '%';
           let x = hex.hx;
           let y = hex.hy + fontSize * .33;
@@ -251,7 +257,7 @@ export default class TriangleChart extends Component {
     } else {
       diff(props, this.id)
         .ifDiff(['year', 'roundYear', 'highlight', 'jumboHighlight', 'region', 'data', 'tweenedTriangle'], draw)
-        .ifDiff(['roundYear, region'], setTitle)
+        .ifDiff(['roundYear', 'region'], setTitle)
         .ifDiff(['jumboHighlight'], function (p) {
           chart.jumboHighlight = p.jumboHighlight;
         });
