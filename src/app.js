@@ -7,7 +7,8 @@ import { select, event } from 'd3-selection';
 import { requireAll } from './utils';
 import { TRANSITION_DURATION, SNAP_DURATION, END_YEAR, START_YEAR, RACES } from './config';
 
-const Controls = requireAll(require.context('./controls/', false, /^\.\/.*\.js$/));
+import YearControl from './controls/year';
+import RegionControl from './controls/region';
 const Sections = requireAll(require.context('./sections/', false, /^\.\/.*\.js$/));
 
 const controlContainer = select('#controls .container');
@@ -36,7 +37,10 @@ const app = {
   needsUpdate: false,
 
   initialize: function () {
-    app.controls = Controls.map((C) => new C({ container: controlContainer, owner: app }));
+    app.controls = [
+      new YearControl({ container: controlContainer, owner: app }),
+      new RegionControl({ container: controlContainer, owner: app, regions })
+    ];
     app.sections = Sections.map((S) => new S({ container: sectionContainer, owner: app }));
 
     select(window)
@@ -244,12 +248,13 @@ const app = {
     location = location || app.activeSection.id;
     params = params || app.getHash().params;
 
-    return location + (params ? '?' + params.map((p) => p.join('=')).join('&') : '');
+    window.location.hash = location + (params ? '?' + params.map((p) => p.join('=')).join('&') : '');
   },
 
   setHashParam: function (key, value) {
     let currentParams = app.getHash().params || [];
-    let params = currentParams.filter((p) => p[0] !== key).push([key, value]);
+    let params = currentParams.filter((p) => p[0] !== key);
+    params.push([key, value]);
     app.setHash(undefined, params);
   }
 };
