@@ -2,7 +2,7 @@ import './index.html';
 import './assets/styles/app.scss';
 
 import { json as d3_json } from 'd3-request';
-import { select, event } from 'd3-selection';
+import { select, selectAll, event } from 'd3-selection';
 
 import { requireAll } from './utils';
 import { TRANSITION_DURATION, SNAP_DURATION, END_YEAR, START_YEAR, RACES } from './config';
@@ -43,6 +43,14 @@ const app = {
     ];
     app.sections = Sections.map((S) => new S({ container: sectionContainer, owner: app }));
 
+    selectAll('a').on('click', function() {
+      let href = select(event.target).attr('href');
+      if (href.charAt(0) === '#') {
+        app.setSection(app.sections.findIndex((s) => s.id === href.substring(1)));
+        event.preventDefault();
+      }
+    });
+
     select(window)
       .on('resize', app.resize)
       .on('hashchange', app.loadStateFromHash)
@@ -78,6 +86,15 @@ const app = {
     } else {
       app.activeSection.wrap.classed('visible', true);
     }
+
+    let nav = select('#section-nav');
+    nav.select('.current-section').text(idx + 1);
+    let prev = nav.select('.prev-section');
+    if (idx >= 1) { prev.attr('href', '#' + app.sections[idx - 1].id); }
+    prev.classed('disabled', idx < 1);
+    let next = nav.select('.next-section');
+    if (idx < app.sections.length - 1) { next.attr('href', '#' + app.sections[idx + 1].id); }
+    next.classed('disabled', idx >= app.sections.length - 1);
 
     app.resize();
     app.setHash();

@@ -39,6 +39,54 @@ header {
     margin-top: 0;
     font-size: 22px;
     line-height: $header-height;
+    float: left;
+    a {
+      text-decoration: none;
+      color: $body;
+    }
+  }
+}
+
+nav {
+  float: right;
+  line-height: $header-height;
+  font-weight: 700;
+  font-size: 22px;
+  span.current-section {
+    position: relative;
+    top: -13px;
+  }
+  a.disabled {
+    visibility: hidden;
+  }
+
+  a.arrow {
+    width: $header-height;
+    height: $header-height;
+    text-indent: $header-height;
+    overflow: hidden;
+    display: inline-block;
+    position: relative;
+
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 0; height: 0;
+      top: 14px;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+    }
+
+    &.prev-section:before {
+      right: 4px;
+      border-right: 12px solid $mingray;
+    }
+
+    &.next-section:before {
+      left: 4px;
+      border-left: 12px solid $mingray;
+    }
   }
 }
 
