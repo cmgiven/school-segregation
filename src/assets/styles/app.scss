@@ -324,19 +324,30 @@ p {
 
 .white .bar {
   background: #7493C7;
+  fill: #7493C7;
 }
 .asian .bar {
   background: #ACC45D;
+  fill: #ACC45D;
 }
 .hisp .bar {
   background: #81528B;
+  fill: #81528B;
 }
 .am .bar {
   background: #B84D71;
+  fill: #B84D71;
 }
 .black .bar {
   background: #71AD91;
+  fill: #71AD91;
 }
 .tr .bar {
   background: #BC703B;
+  fill: #BC703B;
+}
+
+.histogram {
+  width: 50%;
+  float: left;
 }
