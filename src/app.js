@@ -16,7 +16,7 @@ const sectionContainer = select('main');
 
 const regions = require('./assets/data/regions.json');
 
-const dataPathForId = (id) => `/data/${id}.json`;
+const dataPathForId = (id) => `data/${id}.json`;
 
 const app = {
   globals: {
